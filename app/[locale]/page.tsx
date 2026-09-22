@@ -2,7 +2,8 @@
 
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 
 export default function Home() {
@@ -38,9 +39,12 @@ export default function Home() {
         </div>
 
         <div className="flex w-full max-w-xs flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
-          <Button size="lg" className="w-full sm:w-auto">
+          <Link
+            href="/registro"
+            className={buttonVariants({ size: "lg", className: "w-full sm:w-auto" })}
+          >
             {t("primaryCta")}
-          </Button>
+          </Link>
           <Button size="lg" variant="secondary" className="w-full sm:w-auto">
             {t("secondaryCta")}
           </Button>

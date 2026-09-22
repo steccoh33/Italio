@@ -3,5 +3,44 @@
     "subtitle": "Mejorá tu escritura en italiano",
     "primaryCta": "Empezar",
     "secondaryCta": "Conocer más"
+  },
+  "Auth": {
+    "fullNameLabel": "Nombre y apellido",
+    "loginCodeLabel": "Tu código de acceso",
+    "teacherCodeLabel": "Código de tu profesor",
+    "teacherCodeHint": "Formato: 3 letras y 3 números, por ejemplo MRC-482.",
+    "submitting": "Un momento…"
+  },
+  "Register": {
+    "title": "Creá tu cuenta",
+    "subtitle": "Elegí si sos profesor o alumno para empezar.",
+    "teacherTab": "Soy profesor",
+    "studentTab": "Soy alumno",
+    "teacherSubmit": "Crear cuenta de profesor",
+    "studentSubmit": "Crear cuenta de alumno",
+    "invalidTeacherCode": "Ese código de profesor no existe. Revisá que lo hayas escrito bien.",
+    "genericError": "No pudimos completar el registro. Intentá de nuevo.",
+    "haveAccount": "¿Ya tenés cuenta?",
+    "loginLink": "Iniciar sesión"
+  },
+  "Login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Entrá con tu código de acceso.",
+    "submit": "Iniciar sesión",
+    "invalidLoginCode": "Ese código no es válido. Revisá que lo hayas escrito bien.",
+    "noAccount": "¿Todavía no tenés cuenta?",
+    "registerLink": "Registrate"
+  },
+  "AccountStatus": {
+    "pendingTitle": "Tu cuenta está esperando aprobación",
+    "pendingBody": "Te vamos a avisar en cuanto un administrador apruebe tu cuenta. Mientras tanto no podés acceder al resto de Italio.",
+    "pausedTitle": "Tu cuenta está pausada",
+    "pausedBody": "Tu acceso está suspendido por ahora. Contactá a un administrador para más información.",
+    "welcomeTitle": "Bienvenido/a a Italio",
+    "welcomeBody": "Tu cuenta está activa. Pronto vas a encontrar acá tu panel.",
+    "saveCodesNote": "Guardá estos códigos: los vas a necesitar para entrar y no vas a poder verlos en otro lugar.",
+    "loginCodeLabel": "Tu código de acceso",
+    "shareCodeLabel": "Tu código para compartir con tus alumnos",
+    "signOut": "Cerrar sesión"
   }
 }

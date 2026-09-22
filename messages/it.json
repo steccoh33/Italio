@@ -3,5 +3,44 @@
     "subtitle": "Migliora la tua scrittura in italiano",
     "primaryCta": "Inizia",
     "secondaryCta": "Scopri di più"
+  },
+  "Auth": {
+    "fullNameLabel": "Nome e cognome",
+    "loginCodeLabel": "Il tuo codice di accesso",
+    "teacherCodeLabel": "Codice del tuo insegnante",
+    "teacherCodeHint": "Formato: 3 lettere e 3 numeri, ad esempio MRC-482.",
+    "submitting": "Un momento…"
+  },
+  "Register": {
+    "title": "Crea il tuo account",
+    "subtitle": "Scegli se sei un insegnante o uno studente per iniziare.",
+    "teacherTab": "Sono insegnante",
+    "studentTab": "Sono studente",
+    "teacherSubmit": "Crea account insegnante",
+    "studentSubmit": "Crea account studente",
+    "invalidTeacherCode": "Quel codice insegnante non esiste. Controlla di averlo scritto correttamente.",
+    "genericError": "Non è stato possibile completare la registrazione. Riprova.",
+    "haveAccount": "Hai già un account?",
+    "loginLink": "Accedi"
+  },
+  "Login": {
+    "title": "Accedi",
+    "subtitle": "Entra con il tuo codice di accesso.",
+    "submit": "Accedi",
+    "invalidLoginCode": "Quel codice non è valido. Controlla di averlo scritto correttamente.",
+    "noAccount": "Non hai ancora un account?",
+    "registerLink": "Registrati"
+  },
+  "AccountStatus": {
+    "pendingTitle": "Il tuo account è in attesa di approvazione",
+    "pendingBody": "Ti avviseremo appena un amministratore avrà approvato il tuo account. Nel frattempo non puoi ancora accedere al resto di Italio.",
+    "pausedTitle": "Il tuo account è in pausa",
+    "pausedBody": "Il tuo accesso è temporaneamente sospeso. Contatta un amministratore per maggiori informazioni.",
+    "welcomeTitle": "Benvenuto/a su Italio",
+    "welcomeBody": "Il tuo account è attivo. Presto qui troverai il tuo pannello.",
+    "saveCodesNote": "Salva questi codici: ti serviranno per accedere e non potrai vederli altrove.",
+    "loginCodeLabel": "Il tuo codice di accesso",
+    "shareCodeLabel": "Il tuo codice da condividere con gli studenti",
+    "signOut": "Esci"
   }
 }
