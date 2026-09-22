@@ -11,6 +11,7 @@
 // issue's author verified, via patch-package instead of a pnpm patch.
 "use strict";
 
+/* eslint-disable @typescript-eslint/no-require-imports -- plain Node CJS script */
 const fs = require("fs");
 const path = require("path");
 

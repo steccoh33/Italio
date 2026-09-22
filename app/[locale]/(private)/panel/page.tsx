@@ -1,8 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { getCurrentProfile } from "@/lib/auth/get-current-profile";
-import { signOutAction } from "@/lib/auth/actions";
-import { Button } from "@/components/ui/button";
+import { getRolePanelHref } from "@/lib/auth/role-panel";
 
 export default async function PanelPage() {
   const profile = await getCurrentProfile();
@@ -10,6 +9,13 @@ export default async function PanelPage() {
 
   if (!profile) {
     return redirect({ href: "/login", locale });
+  }
+
+  if (profile.effectiveStatus === "active") {
+    const rolePanelHref = getRolePanelHref(profile.role);
+    if (rolePanelHref) {
+      return redirect({ href: rolePanelHref, locale });
+    }
   }
 
   const t = await getTranslations("AccountStatus");
@@ -79,12 +85,6 @@ export default async function PanelPage() {
           )}
         </div>
       )}
-
-      <form action={signOutAction}>
-        <Button type="submit" variant="secondary" size="lg">
-          {t("signOut")}
-        </Button>
-      </form>
     </div>
   );
 }
