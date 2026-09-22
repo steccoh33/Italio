@@ -7,7 +7,7 @@ import type { UserRole } from "@/lib/types/profile";
  */
 const ROLE_PANEL_HREF: Partial<Record<UserRole, string>> = {
   admin: "/admin",
-  // teacher: "/panel/teacher" — próxima etapa
+  teacher: "/teacher",
   // student: "/panel/student" — próxima etapa
 };
 
