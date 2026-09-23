@@ -1,9 +1,10 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { redirect } from "@/i18n/navigation";
+import { redirect, Link } from "@/i18n/navigation";
 import { getCurrentProfile } from "@/lib/auth/get-current-profile";
 import { createClient } from "@/lib/supabase/server";
 import { ShareCodeCard } from "@/components/teacher/share-code-card";
 import { StudentsPanel } from "@/components/teacher/students-panel";
+import { buttonVariants } from "@/components/ui/button";
 import type { TeacherStudentRow } from "@/lib/types/profile";
 
 export default async function TeacherPage() {
@@ -45,6 +46,17 @@ export default async function TeacherPage() {
           loginCode={profile.loginCode}
         />
       )}
+
+      <Link
+        href="/teacher/classes"
+        className={buttonVariants({
+          variant: "secondary",
+          size: "sm",
+          className: "self-start",
+        })}
+      >
+        {t("classesLink")}
+      </Link>
 
       <StudentsPanel students={students} />
     </div>

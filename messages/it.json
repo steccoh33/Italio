@@ -80,6 +80,7 @@
     "copyButton": "Copia",
     "copiedFeedback": "Copiato!",
     "ownLoginCodeLabel": "Il tuo codice di accesso",
+    "classesLink": "Le mie classi",
     "searchPlaceholder": "Cerca per nome…",
     "filterAll": "Tutti",
     "filterPending": "In attesa",
@@ -101,6 +102,29 @@
     "cancel": "Annulla",
     "confirmDelete": "Sì, elimina",
     "noResults": "Nessuno studente trovato.",
+    "genericError": "Non è stato possibile completare l'operazione. Riprova."
+  },
+  "Classes": {
+    "backToTeacher": "← Il tuo pannello",
+    "backToClasses": "← Le mie classi",
+    "title": "Le mie classi",
+    "subtitle": "Crea e organizza le tue classi.",
+    "createLabel": "Nome della classe",
+    "createPlaceholder": "es. Primo anno, CILS",
+    "createButton": "Crea classe",
+    "studentCount": "{count, plural, =0 {Nessuno studente} one {# studente} other {# studenti}}",
+    "viewButton": "Vedi",
+    "noClasses": "Non hai ancora classi.",
+    "saveNameButton": "Salva nome",
+    "savedFeedback": "Salvato!",
+    "membersTitle": "Studenti",
+    "saveMembersButton": "Salva modifiche",
+    "noStudents": "Non hai ancora studenti.",
+    "deleteButton": "Elimina classe",
+    "deleteConfirmTitle": "Confermi l'eliminazione?",
+    "deleteConfirmBody": "Stai per eliminare la classe \"{name}\". Gli studenti non vengono eliminati: si annulla solo il raggruppamento di questa classe.",
+    "cancel": "Annulla",
+    "confirmDelete": "Sì, elimina",
     "genericError": "Non è stato possibile completare l'operazione. Riprova."
   }
 }

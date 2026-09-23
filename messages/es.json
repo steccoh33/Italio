@@ -80,6 +80,7 @@
     "copyButton": "Copiar",
     "copiedFeedback": "¡Copiado!",
     "ownLoginCodeLabel": "Tu código de acceso",
+    "classesLink": "Mis clases",
     "searchPlaceholder": "Buscar por nombre…",
     "filterAll": "Todos",
     "filterPending": "Pendientes",
@@ -101,6 +102,29 @@
     "cancel": "Cancelar",
     "confirmDelete": "Sí, eliminar",
     "noResults": "No se encontraron alumnos.",
+    "genericError": "No pudimos completar la operación. Intentá de nuevo."
+  },
+  "Classes": {
+    "backToTeacher": "← Tu panel",
+    "backToClasses": "← Mis clases",
+    "title": "Mis clases",
+    "subtitle": "Creá y organizá tus clases.",
+    "createLabel": "Nombre de la clase",
+    "createPlaceholder": "ej. Primer año, CILS",
+    "createButton": "Crear clase",
+    "studentCount": "{count, plural, =0 {Sin alumnos} one {# alumno} other {# alumnos}}",
+    "viewButton": "Ver",
+    "noClasses": "Todavía no tenés clases.",
+    "saveNameButton": "Guardar nombre",
+    "savedFeedback": "¡Guardado!",
+    "membersTitle": "Alumnos",
+    "saveMembersButton": "Guardar cambios",
+    "noStudents": "Todavía no tenés alumnos.",
+    "deleteButton": "Eliminar clase",
+    "deleteConfirmTitle": "¿Confirmás la eliminación?",
+    "deleteConfirmBody": "Vas a eliminar la clase \"{name}\". Los alumnos no se borran, solo se deshace el agrupamiento de esta clase.",
+    "cancel": "Cancelar",
+    "confirmDelete": "Sí, eliminar",
     "genericError": "No pudimos completar la operación. Intentá de nuevo."
   }
 }
