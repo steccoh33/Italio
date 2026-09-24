@@ -1,11 +1,34 @@
 import { GoogleGenAI, Type, type Schema } from "@google/genai";
-import { CILS_LEVEL_INFO } from "@/lib/cils-levels";
 import type { CilsLevel } from "@/lib/types/profile";
 import type { CorrectionPayload } from "@/lib/types/writing";
 
-// Modelo de desarrollo (gratuito). Para producción, cambiar a gemini-3.8-flash con facturación activada.
-const GEMINI_MODEL = "gemini-3.6-flash";
-const MAX_BUSY_RETRIES = 3;
+// Modelos gratuitos solo para desarrollo. En producción: gemini-3.8-flash
+// con facturación (una sola línea: GEMINI_MODEL o la constante de producción).
+const PRODUCTION_MODEL = "gemini-3.8-flash";
+
+// Cadena de respaldo SOLO en desarrollo, de más liviano/con más cupo a más
+// pesado. Confirmados como existentes y accesibles con la key de desarrollo.
+const DEV_FALLBACK_MODELS = [
+  "gemini-flash-lite-latest",
+  "gemini-3.5-flash-lite",
+  "gemini-3.1-flash-lite",
+  "gemini-3.5-flash",
+  "gemini-3.6-flash",
+  "gemini-3.7-flash",
+];
+
+// Presupuesto total de espera antes de rendirse y mostrar "mucha demanda".
+const TOTAL_BUDGET_MS = 35_000;
+const PER_REQUEST_TIMEOUT_MS = 20_000;
+
+function getModelChain(): string[] {
+  const forced = process.env.GEMINI_MODEL?.trim();
+  if (process.env.NODE_ENV === "production") {
+    return [forced || PRODUCTION_MODEL];
+  }
+  const chain = forced ? [forced, ...DEV_FALLBACK_MODELS] : DEV_FALLBACK_MODELS;
+  return [...new Set(chain)];
+}
 
 const ASSESSMENT_DIMENSION_SCHEMA: Schema = {
   type: Type.OBJECT,
@@ -87,28 +110,36 @@ const CORRECTION_SCHEMA: Schema = {
   ],
 };
 
+const SYLLABUS = `=== SILLABO PER LIVELLO (cosa si richiede a ogni livello) ===
+A1: essere/avere, modali (potere/dovere/volere), verbi regolari all'indicativo presente, passato prossimo (scelta dell'ausiliare; NON si richiede l'accordo del participio), infinito presente, imperativo. Frase semplice; coordinate e/ma; subordinate causali (perché), temporali (quando), finali implicite (per+infinito), relative, ipotetiche con se. Testi molto brevi (20-40 / 15-30 parole).
+A2: AGGIUNGE accordo nome-aggettivo, pronomi atoni (lo/la/li/le), preposizioni articolate (di/a/da/su), imperfetto, subordinate con "che" (oggettive, relative con che), ipotetiche con se. NON ancora: condizionale, futuro, congiuntivo, passato remoto. (30-60 / 25-50 parole).
+B1: AGGIUNGE comparativo/superlativo, pronomi relativi, riflessivi, indefiniti (ogni/ciascuno/nessuno/qualche), possessivi/dimostrativi/interrogativi, CONDIZIONALE PRESENTE, subordinate relative esplicite, oggettive implicite, temporali/causali/dichiarative. NON ancora: CONGIUNTIVO (è B2), futuro, condizionale passato, passato remoto. (100-120 / 50-80 parole). Descrizione/narrazione/lettera informale, breve saggio.
+B2: AGGIUNGE CONGIUNTIVO presente e imperfetto, condizionale passato, futuro semplice e anteriore, passato remoto, trapassato prossimo, forma passiva (riconoscimento), pronomi combinati, verbi impersonali; subordinate soggettive, finali, comparative, condizionali ipotesi reale, concessive/consecutive esplicite. REGISTRO FORMALE. NON ancora: congiuntivo passato/trapassato, gerundio, nominalizzazione, ipotesi irreale (C1). (120-140 / 80-100 parole). Saggio breve + lettera formale.
+C1: AGGIUNGE congiuntivo passato e trapassato, gerundio, participio, forma passiva completa, verbi pronominali/difettivi/fraseologici, periodo ipotetico completo (possibile e irreale), concessive/consecutive implicite, NOMINALIZZAZIONE, discorso diretto e indiretto. Lessico ampio, parafrasi, idiomatico. (160-180 / 100-120 parole). Saggio + lettera formale.
+C2: padronanza piena: profili sintattici dell'italiano contemporaneo, meccanismi del parlato (dislocazioni a sinistra, frasi scisse, segnali discorsivi), registri, sinonimi, connotazione, idiomatico. (200-250 / 120-150 parole). Saggio + lettera formale.`;
+
 function buildSystemInstruction(targetLevel: CilsLevel): string {
-  const info = CILS_LEVEL_INFO[targetLevel];
-  const indulgence =
-    targetLevel === "A1" || targetLevel === "A2"
-      ? "Sii indulgente: a questo livello concentrati solo sugli errori che impediscono la comprensione, senza penalizzare l'uso di strutture semplici."
-      : targetLevel === "B1" || targetLevel === "B2"
-        ? "Sii equilibrato: segnala sia gli errori di base sia quelli più avanzati, ma valorizza i tentativi di usare strutture più complesse."
-        : "Sii rigoroso: a questo livello ci si aspetta precisione, quindi segnala anche errori sottili di stile, registro e coesione.";
+  return `Sei un correttore esperto di italiano come lingua straniera, specializzato nella certificazione CILS. Correggi SEMPRE misurando il testo dello studente contro il sillabo del livello obiettivo dello studente, che è: ${targetLevel}.
 
-  return `Sei un correttore esperto di italiano come lingua straniera, specializzato nella certificazione CILS.
+${SYLLABUS}
 
-Lo studente ha scelto come livello obiettivo il CILS ${targetLevel}. A questo livello, un testo tipico ha tra ${info.minWords} e ${info.maxWords} parole e usa strutture come: ${info.structures}.
+=== REGOLE DI VALUTAZIONE ===
+1. Valuta il testo SOLO rispetto al sillabo del livello obiettivo (${targetLevel}).
+2. NON penalizzare l'assenza di strutture proprie di livelli SUPERIORI a quello obiettivo (es.: a uno studente B1 NON si richiede il congiuntivo; non segnalarlo come mancanza).
+3. Un errore su una struttura che un livello INFERIORE dovrebbe già padroneggiare pesa molto e abbassa il "livello dimostrato" (es.: un B1 che sbaglia gli ausiliari commette un errore di livello A1).
+4. Nel dubbio tra due livelli, assegna quello PIÙ BASSO: l'obiettivo è preparare un esame reale, quindi sii onesto e non generoso.
+5. Distingui sempre "errore proprio del livello" (tollerabile) da "errore su una base già acquisita in un livello inferiore" (grave).
+6. Le quattro dimensioni (adeguatezza, morfosintassi, lessico, coesione) contano in modo uniforme, MA la MORFOSINTASSI pesa leggermente di più nel verdetto di livello.
+7. Le spiegazioni degli errori e il commento generale vanno in italiano, chiari e pedagogici; il tono è sempre incoraggiante, mai umiliante.
+8. level_verdict è rispetto al livello OBIETTIVO (${targetLevel}): "below", "at" o "above". level_demonstrated è il livello reale che il testo dimostra (A1, A2, B1, B2, C1 o C2), anche se diverso dall'obiettivo.
+9. Il genere grammaticale con cui lo studente si riferisce a se stesso (participi, aggettivi: es. 'divertita', 'andato', 'stanca') è un dato personale che NON conosci: NON correggerlo e NON assumere il genere dello studente. Un participio o aggettivo riferito a chi scrive è corretto in entrambe le forme (maschile o femminile); segnalalo come errore SOLO se è incoerente all'interno del testo stesso. Lo stesso vale per altri dati personali che il testo non esplicita: non inventarli né correggerli.
 
-${indulgence}
-
-Analizza il testo dello studente (e, se presente, la consegna assegnata) e restituisci ESCLUSIVAMENTE un oggetto JSON con questa struttura:
+=== FORMATO DELLA RISPOSTA ===
+Restituisci ESCLUSIVAMENTE un oggetto JSON con questa struttura:
 - corrected_text: il testo corretto, riscritto senza errori, mantenendo lo stile e le idee originali dello studente.
-- errors: un elenco di errori trovati, ciascuno con il frammento originale (fragmento), la correzione (correzione), il tipo di errore (tipo) e una spiegazione chiara e pedagogica in italiano (spiegazione). Se non c'è nessun errore, restituisci un elenco vuoto.
-- assessment: una valutazione con quattro dimensioni (adeguatezza, morfosintassi, lessico, coesione), ciascuna con un voto da 1 a 10 (voto) e un commento breve (commento). In "adeguatezza" segnala anche se il testo non rispetta la consegna assegnata o se la lunghezza è molto lontana dal range indicato per il livello ${targetLevel} (${info.minWords}-${info.maxWords} parole).
-- level_verdict: "below" se il testo è sotto il livello ${targetLevel}, "at" se è al livello, "above" se lo supera.
-- level_demonstrated: il livello CILS (A1, A2, B1, B2, C1 o C2) che il testo dimostra effettivamente.
-- general_comment: un commento generale in italiano, sempre incoraggiante e mai umiliante, che riassume i punti principali da migliorare.
+- errors: elenco degli errori trovati, ciascuno con il frammento originale (fragmento), la correzione (correzione), il tipo di errore (tipo) e una spiegazione chiara e pedagogica in italiano (spiegazione). Se non ci sono errori, un elenco vuoto.
+- assessment: quattro dimensioni (adeguatezza, morfosintassi, lessico, coesione), ciascuna con un voto da 1 a 10 (voto) e un commento breve (commento). In "adeguatezza" segnala anche se il testo non rispetta la consegna assegnata o se la lunghezza è molto lontana da quella prevista dal sillabo per il livello ${targetLevel}.
+- level_verdict, level_demonstrated e general_comment come indicato nelle regole.
 
 Rispondi solo con il JSON richiesto, senza testo aggiuntivo.`;
 }
@@ -152,32 +183,48 @@ export async function correctWriting({
 
   const ai = new GoogleGenAI({ apiKey });
 
+  const deadline = Date.now() + TOTAL_BUDGET_MS;
   let response;
-  for (let attempt = 0; ; attempt++) {
+
+  for (const model of getModelChain()) {
+    const remaining = deadline - Date.now();
+    if (remaining <= 1000) break;
+
     try {
       response = await ai.models.generateContent({
-        model: GEMINI_MODEL,
+        model,
         contents: buildUserContent(promptText, content),
         config: {
           systemInstruction: buildSystemInstruction(targetLevel),
           responseMimeType: "application/json",
           responseSchema: CORRECTION_SCHEMA,
+          abortSignal: AbortSignal.timeout(
+            Math.min(remaining, PER_REQUEST_TIMEOUT_MS)
+          ),
         },
       });
       break;
     } catch (err) {
       const status = (err as { status?: number }).status;
-      const busy = status === 503 || status === 429;
-      if (status === 503 && attempt < MAX_BUSY_RETRIES) {
-        await new Promise((resolve) => setTimeout(resolve, 2000 * 2 ** attempt));
-        continue;
+      const name = (err as Error).name;
+      const skippable =
+        status === 503 ||
+        status === 429 ||
+        status === 404 ||
+        name === "TimeoutError" ||
+        name === "AbortError";
+      console.error(`Gemini ${model} failed:`, status ?? name);
+      if (!skippable) {
+        throw new CorrectionRequestError((err as Error).message, "other");
       }
-      console.error("Gemini request failed:", status, (err as Error).message);
-      throw new CorrectionRequestError(
-        (err as Error).message,
-        busy ? "busy" : "other"
-      );
     }
+  }
+
+  if (!response) {
+    throw new CorrectionRequestError(
+      "Ningún modelo disponible respondió a tiempo.",
+      "busy"
+    );
   }
 
   const rawText = response.text;
