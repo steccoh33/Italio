@@ -137,7 +137,27 @@
     "title": "Tu panel",
     "subtitle": "Escribí en italiano y seguí tu progreso.",
     "writeTab": "Escribir",
-    "historyTab": "Tus escritos"
+    "historyTab": "Tus escritos",
+    "guidesLink": "Guías de escritura"
+  },
+  "Guides": {
+    "title": "Guías de escritura",
+    "subtitle": "Guías para tu nivel objetivo: {level}.",
+    "comingSoon": "Las guías para tu nivel llegarán pronto.",
+    "backToPanel": "← Tu panel",
+    "backToGuides": "← Guías de escritura",
+    "openGuide": "Abrir guía →",
+    "whatIsIt": "Qué es y cuándo aparece",
+    "register": "Registro",
+    "structure": "Estructura",
+    "start": "Inicio",
+    "development": "Desarrollo",
+    "end": "Cierre",
+    "usefulPhrases": "Frases útiles",
+    "modelExample": "Ejemplo modelo",
+    "commonMistakes": "Errores a evitar",
+    "copy": "Copiar",
+    "copied": "¡Copiado!"
   },
   "Writing": {
     "targetLevelLabel": "Tu nivel objetivo",

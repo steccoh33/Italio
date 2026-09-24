@@ -137,7 +137,27 @@
     "title": "Il tuo pannello",
     "subtitle": "Scrivi in italiano e segui i tuoi progressi.",
     "writeTab": "Scrivi",
-    "historyTab": "I tuoi scritti"
+    "historyTab": "I tuoi scritti",
+    "guidesLink": "Guide di scrittura"
+  },
+  "Guides": {
+    "title": "Guide di scrittura",
+    "subtitle": "Guide per il tuo livello obiettivo: {level}.",
+    "comingSoon": "Le guide per il tuo livello arriveranno presto.",
+    "backToPanel": "← Il tuo pannello",
+    "backToGuides": "← Guide di scrittura",
+    "openGuide": "Apri la guida →",
+    "whatIsIt": "Che cos'è e quando compare",
+    "register": "Registro",
+    "structure": "Struttura",
+    "start": "Inizio",
+    "development": "Sviluppo",
+    "end": "Conclusione",
+    "usefulPhrases": "Frasi utili",
+    "modelExample": "Esempio modello",
+    "commonMistakes": "Errori da evitare",
+    "copy": "Copia",
+    "copied": "Copiato!"
   },
   "Writing": {
     "targetLevelLabel": "Il tuo livello obiettivo",
