@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import type { UserRole, UserStatus } from "@/lib/types/profile";
+import type { CilsLevel, UserRole, UserStatus } from "@/lib/types/profile";
 
 export type CurrentProfile = {
   userId: string;
@@ -10,6 +10,7 @@ export type CurrentProfile = {
   teacherCode: string | null;
   teacherId: string | null;
   loginCode: string;
+  targetLevel: CilsLevel | null;
   /** Own status, adjusted for students whose teacher isn't active. */
   effectiveStatus: UserStatus;
 };
@@ -30,7 +31,9 @@ export async function getCurrentProfile(): Promise<CurrentProfile | null> {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role, status, full_name, teacher_code, teacher_id, login_code")
+    .select(
+      "role, status, full_name, teacher_code, teacher_id, login_code, target_level"
+    )
     .eq("id", userId)
     .single();
 
@@ -68,6 +71,7 @@ export async function getCurrentProfile(): Promise<CurrentProfile | null> {
     teacherCode: profile.teacher_code,
     teacherId: profile.teacher_id,
     loginCode: profile.login_code,
+    targetLevel: profile.target_level,
     effectiveStatus,
   };
 }

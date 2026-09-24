@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isCilsLevel } from "@/lib/cils-levels";
 
 export type AuthActionState = {
   error: string | null;
@@ -34,6 +35,7 @@ export async function registerAction(
 
   const admin = createAdminClient();
   let teacherCode: string | null = null;
+  let targetLevel: string | null = null;
 
   if (role === "student") {
     teacherCode = ((formData.get("teacherCode") as string) ?? "")
@@ -42,6 +44,11 @@ export async function registerAction(
 
     if (!TEACHER_CODE_REGEX.test(teacherCode)) {
       return { error: t("invalidTeacherCode") };
+    }
+
+    targetLevel = (formData.get("targetLevel") as string) ?? "";
+    if (!isCilsLevel(targetLevel)) {
+      return { error: t("genericError") };
     }
 
     // RLS blocks reading another user's profile, so this lookup needs the
@@ -82,6 +89,7 @@ export async function registerAction(
             full_name: fullName,
             teacher_code: teacherCode,
             login_code: loginCode,
+            target_level: targetLevel,
           },
   });
 

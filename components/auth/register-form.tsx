@@ -4,6 +4,8 @@ import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { registerAction, type AuthActionState } from "@/lib/auth/actions";
+import { CILS_LEVELS, CILS_LEVEL_INFO } from "@/lib/cils-levels";
+import type { CilsLevel } from "@/lib/types/profile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +16,7 @@ export function RegisterForm() {
   const t = useTranslations("Register");
   const tAuth = useTranslations("Auth");
   const [role, setRole] = useState<"teacher" | "student">("teacher");
+  const [targetLevel, setTargetLevel] = useState<CilsLevel>("A1");
   const [state, formAction, pending] = useActionState(
     registerAction,
     initialState
@@ -54,20 +57,41 @@ export function RegisterForm() {
       </div>
 
       {role === "student" && (
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="teacherCode">{tAuth("teacherCodeLabel")}</Label>
-          <Input
-            id="teacherCode"
-            name="teacherCode"
-            type="text"
-            placeholder="MRC-482"
-            className="uppercase"
-            required
-          />
-          <p className="text-xs text-muted-foreground">
-            {tAuth("teacherCodeHint")}
-          </p>
-        </div>
+        <>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="teacherCode">{tAuth("teacherCodeLabel")}</Label>
+            <Input
+              id="teacherCode"
+              name="teacherCode"
+              type="text"
+              placeholder="MRC-482"
+              className="uppercase"
+              required
+            />
+            <p className="text-xs text-muted-foreground">
+              {tAuth("teacherCodeHint")}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="targetLevel">{tAuth("targetLevelLabel")}</Label>
+            <select
+              id="targetLevel"
+              name="targetLevel"
+              value={targetLevel}
+              onChange={(event) =>
+                setTargetLevel(event.target.value as CilsLevel)
+              }
+              className="h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30"
+            >
+              {CILS_LEVELS.map((level) => (
+                <option key={level} value={level}>
+                  {CILS_LEVEL_INFO[level].label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </>
       )}
 
       {state.error && (

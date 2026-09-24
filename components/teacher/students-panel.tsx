@@ -2,13 +2,13 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import {
   updateStudentStatusAction,
   deleteStudentsAction,
 } from "@/lib/auth/teacher-actions";
 import type { TeacherStudentRow, UserStatus } from "@/lib/types/profile";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -253,6 +253,12 @@ export function StudentsPanel({
               </div>
 
               <div className="flex flex-wrap gap-2 sm:flex-col sm:items-stretch">
+                <Link
+                  href={`/teacher/students/${student.id}`}
+                  className={buttonVariants({ variant: "secondary", size: "sm" })}
+                >
+                  {t("viewWritingsButton")}
+                </Link>
                 {student.status === "pending" && (
                   <Button
                     size="sm"

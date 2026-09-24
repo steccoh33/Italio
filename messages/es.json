@@ -9,6 +9,7 @@
     "loginCodeLabel": "Tu código de acceso",
     "teacherCodeLabel": "Código de tu profesor",
     "teacherCodeHint": "Formato: 3 letras y 3 números, por ejemplo MRC-482.",
+    "targetLevelLabel": "¿Qué nivel querés rendir?",
     "submitting": "Un momento…"
   },
   "Register": {
@@ -92,6 +93,7 @@
     "statusActive": "Activo",
     "statusPaused": "Pausado",
     "loginCodeLabel": "Código de acceso",
+    "viewWritingsButton": "Ver escritos",
     "approve": "Aprobar",
     "pause": "Pausar",
     "reactivate": "Reactivar",
@@ -126,5 +128,57 @@
     "cancel": "Cancelar",
     "confirmDelete": "Sí, eliminar",
     "genericError": "No pudimos completar la operación. Intentá de nuevo."
+  },
+  "Nav": {
+    "adminTab": "Administración",
+    "teacherTab": "Mis alumnos"
+  },
+  "Student": {
+    "title": "Tu panel",
+    "subtitle": "Escribí en italiano y seguí tu progreso.",
+    "writeTab": "Escribir",
+    "historyTab": "Tus escritos"
+  },
+  "Writing": {
+    "targetLevelLabel": "Tu nivel objetivo",
+    "promptLabel": "Consigna (opcional)",
+    "promptPlaceholder": "ej. Descrivi la tua giornata tipica",
+    "promptHint": "Dejalo vacío para escribir libremente.",
+    "contentLabel": "Tu texto en italiano",
+    "wordCount": "{count, plural, one {# palabra} other {# palabras}}",
+    "expectedRange": "Para tu nivel se esperan entre {min} y {max} palabras.",
+    "submit": "Corregir",
+    "correcting": "Corrigiendo…",
+    "genericError": "No pudimos guardar tu escrito. Intentá de nuevo.",
+    "correctionError": "No pudimos generar la corrección. Intentá de nuevo.",
+    "modelBusy": "El corrector está con mucha demanda en este momento. Probá de nuevo en unos minutos.",
+    "historyTitle": "Tus escritos anteriores",
+    "noHistory": "Todavía no escribiste nada.",
+    "statusPending": "Corrigiendo…",
+    "statusError": "Hubo un error al corregir",
+    "viewDetail": "Ver corrección",
+    "hideDetail": "Ocultar",
+    "createdAt": "Enviado el {date}"
+  },
+  "Correction": {
+    "verdictBelow": "Por debajo del nivel {level}",
+    "verdictAt": "En el nivel {level}",
+    "verdictAbove": "Por encima del nivel {level}",
+    "demonstratedLevel": "Nivel demostrado en este texto: {level}",
+    "originalTextTitle": "Texto original",
+    "correctedTextTitle": "Texto corregido",
+    "errorsTitle": "Errores encontrados",
+    "noErrors": "No encontramos errores. ¡Muy bien!",
+    "assessmentTitle": "Evaluación",
+    "adeguatezza": "Adecuación a la consigna",
+    "morfosintassi": "Morfosintaxis",
+    "lessico": "Léxico",
+    "coesione": "Cohesión",
+    "generalCommentTitle": "Comentario general"
+  },
+  "TeacherStudentDetail": {
+    "title": "Escritos de {name}",
+    "noWritings": "Este alumno todavía no escribió nada.",
+    "backToStudents": "← Tu panel"
   }
 }

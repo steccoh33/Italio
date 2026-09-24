@@ -9,6 +9,7 @@
     "loginCodeLabel": "Il tuo codice di accesso",
     "teacherCodeLabel": "Codice del tuo insegnante",
     "teacherCodeHint": "Formato: 3 lettere e 3 numeri, ad esempio MRC-482.",
+    "targetLevelLabel": "Quale livello vuoi sostenere?",
     "submitting": "Un momento…"
   },
   "Register": {
@@ -92,6 +93,7 @@
     "statusActive": "Attivo",
     "statusPaused": "In pausa",
     "loginCodeLabel": "Codice di accesso",
+    "viewWritingsButton": "Vedi scritti",
     "approve": "Approva",
     "pause": "Metti in pausa",
     "reactivate": "Riattiva",
@@ -126,5 +128,57 @@
     "cancel": "Annulla",
     "confirmDelete": "Sì, elimina",
     "genericError": "Non è stato possibile completare l'operazione. Riprova."
+  },
+  "Nav": {
+    "adminTab": "Amministrazione",
+    "teacherTab": "I miei studenti"
+  },
+  "Student": {
+    "title": "Il tuo pannello",
+    "subtitle": "Scrivi in italiano e segui i tuoi progressi.",
+    "writeTab": "Scrivi",
+    "historyTab": "I tuoi scritti"
+  },
+  "Writing": {
+    "targetLevelLabel": "Il tuo livello obiettivo",
+    "promptLabel": "Consegna (opzionale)",
+    "promptPlaceholder": "es. Descrivi la tua giornata tipica",
+    "promptHint": "Lasciala vuota per scrivere liberamente.",
+    "contentLabel": "Il tuo testo in italiano",
+    "wordCount": "{count, plural, one {# parola} other {# parole}}",
+    "expectedRange": "Per il tuo livello si aspettano tra {min} e {max} parole.",
+    "submit": "Correggi",
+    "correcting": "Correzione in corso…",
+    "genericError": "Non è stato possibile salvare il tuo scritto. Riprova.",
+    "correctionError": "Non è stato possibile generare la correzione. Riprova.",
+    "modelBusy": "Il correttore è molto richiesto in questo momento. Riprova tra qualche minuto.",
+    "historyTitle": "I tuoi scritti precedenti",
+    "noHistory": "Non hai ancora scritto niente.",
+    "statusPending": "Correzione in corso…",
+    "statusError": "Si è verificato un errore nella correzione",
+    "viewDetail": "Vedi correzione",
+    "hideDetail": "Nascondi",
+    "createdAt": "Inviato il {date}"
+  },
+  "Correction": {
+    "verdictBelow": "Sotto il livello {level}",
+    "verdictAt": "A livello {level}",
+    "verdictAbove": "Sopra il livello {level}",
+    "demonstratedLevel": "Livello dimostrato in questo testo: {level}",
+    "originalTextTitle": "Testo originale",
+    "correctedTextTitle": "Testo corretto",
+    "errorsTitle": "Errori trovati",
+    "noErrors": "Nessun errore trovato. Ottimo lavoro!",
+    "assessmentTitle": "Valutazione",
+    "adeguatezza": "Adeguatezza alla consegna",
+    "morfosintassi": "Morfosintassi",
+    "lessico": "Lessico",
+    "coesione": "Coesione",
+    "generalCommentTitle": "Commento generale"
+  },
+  "TeacherStudentDetail": {
+    "title": "Scritti di {name}",
+    "noWritings": "Questo studente non ha ancora scritto niente.",
+    "backToStudents": "← Il tuo pannello"
   }
 }

@@ -23,7 +23,7 @@ export default async function TeacherPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("profiles")
-    .select("id, full_name, status, login_code, created_at")
+    .select("id, full_name, status, login_code, created_at, target_level")
     .eq("teacher_id", profile.userId)
     .eq("role", "student")
     .order("created_at", { ascending: false });

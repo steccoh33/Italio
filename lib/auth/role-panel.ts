@@ -8,7 +8,7 @@ import type { UserRole } from "@/lib/types/profile";
 const ROLE_PANEL_HREF: Partial<Record<UserRole, string>> = {
   admin: "/admin",
   teacher: "/teacher",
-  // student: "/panel/student" — próxima etapa
+  student: "/student",
 };
 
 export function getRolePanelHref(role: UserRole): string | null {
