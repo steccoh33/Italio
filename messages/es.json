@@ -171,7 +171,8 @@
     "hideSession": "Ocultar",
     "planSummary": "Tu plan (tus respuestas al tutor)",
     "teacherSectionTitle": "Escrituras guiadas",
-    "teacherNoSessions": "Este alumno todavía no completó ninguna escritura guiada."
+    "teacherNoSessions": "Este alumno todavía no completó ninguna escritura guiada.",
+    "statsLink": "Estadísticas"
   },
   "Assignments": {
     "sectionTitle": "Tareas",
@@ -273,5 +274,75 @@
     "title": "Escritos de {name}",
     "noWritings": "Este alumno todavía no escribió nada.",
     "backToStudents": "← Tu panel"
+  },
+  "Stats": {
+    "title": "Estadísticas de {name}",
+    "subtitle": "Fortalezas, puntos a reforzar y evolución, calculados a partir de todos sus textos corregidos.",
+    "backToStudent": "← Escritos del alumno",
+    "empty": "Este alumno todavía no tiene textos corregidos. Cuando escriba, acá vas a ver sus estadísticas.",
+    "downloadPdf": "Descargar informe (PDF)",
+    "generatingPdf": "Generando PDF…",
+    "pdfError": "No pudimos generar el PDF. Intentá de nuevo.",
+    "reportTitle": "Informe del alumno",
+    "reportDate": "Fecha del informe",
+    "pageLabel": "Página",
+    "generalTitle": "Datos generales",
+    "textsLabel": "Textos corregidos",
+    "assignmentsLabel": "Tareas entregadas",
+    "guidedLabel": "Escrituras guiadas",
+    "lastTextLabel": "Último texto",
+    "targetLevelLabel": "Nivel objetivo",
+    "summaryTitle": "Resumen",
+    "summaryStrength": "Fortaleza: {dimension} (promedio {avg} sobre 10).",
+    "summaryWeakness": "A reforzar: {dimension} (promedio {avg} sobre 10).",
+    "summaryNoSpread": "Las cuatro dimensiones están parejas: no hay una fortaleza ni una debilidad marcadas.",
+    "summaryTopError": "Error más frecuente: {category} ({count}).",
+    "summaryTrend": {
+      "improving": "Tendencia general: mejora.",
+      "stable": "Tendencia general: estable.",
+      "declining": "Tendencia general: retrocede.",
+      "notEnough": "Todavía pocos textos para calcular la evolución."
+    },
+    "dimensionsTitle": "Dimensiones (promedio sobre 10)",
+    "strengthBadge": "Fortaleza",
+    "weaknessBadge": "A reforzar",
+    "verdictsTitle": "Resultado respecto del nivel objetivo ({level})",
+    "verdict": {
+      "below": "Por debajo del nivel",
+      "at": "En el nivel",
+      "above": "Por encima del nivel"
+    },
+    "errorsTitle": "Errores más frecuentes por tipo",
+    "noErrors": "No se registraron errores.",
+    "evolutionTitle": "Evolución",
+    "evolutionNotEnough": "Todavía pocos textos para calcular la evolución.",
+    "evolutionPeriods": "Período inicial ({first} textos) frente a período reciente ({last} textos).",
+    "fromTo": "de {from} a {to}",
+    "errorsPerTextTotal": "Errores por texto (total)",
+    "errorsPerTextOf": "Errores de {category} por texto",
+    "dimTrend": {
+      "up": "mejoró",
+      "same": "estable",
+      "down": "empeoró"
+    },
+    "errTrend": {
+      "up": "menos errores",
+      "same": "estable",
+      "down": "más errores"
+    },
+    "dim": {
+      "adeguatezza": "Adecuación",
+      "morfosintassi": "Morfosintaxis",
+      "lessico": "Léxico",
+      "coesione": "Cohesión"
+    },
+    "cat": {
+      "morfosintassi": "Morfosintaxis",
+      "lessico": "Léxico",
+      "ortografia": "Ortografía",
+      "coesione": "Cohesión",
+      "adeguatezza": "Adecuación",
+      "altro": "Otros"
+    }
   }
 }

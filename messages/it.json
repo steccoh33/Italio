@@ -171,7 +171,8 @@
     "hideSession": "Nascondi",
     "planSummary": "Il tuo piano (le tue risposte al tutor)",
     "teacherSectionTitle": "Scritture guidate",
-    "teacherNoSessions": "Questo studente non ha ancora completato nessuna scrittura guidata."
+    "teacherNoSessions": "Questo studente non ha ancora completato nessuna scrittura guidata.",
+    "statsLink": "Statistiche"
   },
   "Assignments": {
     "sectionTitle": "Compiti",
@@ -273,5 +274,75 @@
     "title": "Scritti di {name}",
     "noWritings": "Questo studente non ha ancora scritto niente.",
     "backToStudents": "← Il tuo pannello"
+  },
+  "Stats": {
+    "title": "Statistiche di {name}",
+    "subtitle": "Punti di forza, aspetti da rinforzare ed evoluzione, calcolati su tutti i suoi testi corretti.",
+    "backToStudent": "← Scritti dello studente",
+    "empty": "Questo studente non ha ancora testi corretti. Quando scriverà, qui vedrai le sue statistiche.",
+    "downloadPdf": "Scarica il report (PDF)",
+    "generatingPdf": "Creazione del PDF…",
+    "pdfError": "Non è stato possibile creare il PDF. Riprova.",
+    "reportTitle": "Report dello studente",
+    "reportDate": "Data del report",
+    "pageLabel": "Pagina",
+    "generalTitle": "Dati generali",
+    "textsLabel": "Testi corretti",
+    "assignmentsLabel": "Compiti consegnati",
+    "guidedLabel": "Scritture guidate",
+    "lastTextLabel": "Ultimo testo",
+    "targetLevelLabel": "Livello obiettivo",
+    "summaryTitle": "Riepilogo",
+    "summaryStrength": "Punto di forza: {dimension} (media {avg} su 10).",
+    "summaryWeakness": "Da rinforzare: {dimension} (media {avg} su 10).",
+    "summaryNoSpread": "Le quattro dimensioni sono allineate: nessun punto di forza o debolezza marcato.",
+    "summaryTopError": "Errore più frequente: {category} ({count}).",
+    "summaryTrend": {
+      "improving": "Andamento generale: in miglioramento.",
+      "stable": "Andamento generale: stabile.",
+      "declining": "Andamento generale: in calo.",
+      "notEnough": "Ancora pochi testi per calcolare l'evoluzione."
+    },
+    "dimensionsTitle": "Dimensioni (media su 10)",
+    "strengthBadge": "Punto di forza",
+    "weaknessBadge": "Da rinforzare",
+    "verdictsTitle": "Risultato rispetto al livello obiettivo ({level})",
+    "verdict": {
+      "below": "Sotto il livello",
+      "at": "A livello",
+      "above": "Sopra il livello"
+    },
+    "errorsTitle": "Errori più frequenti per tipo",
+    "noErrors": "Nessun errore registrato.",
+    "evolutionTitle": "Evoluzione",
+    "evolutionNotEnough": "Ancora pochi testi per calcolare l'evoluzione.",
+    "evolutionPeriods": "Periodo iniziale ({first} testi) rispetto al periodo recente ({last} testi).",
+    "fromTo": "da {from} a {to}",
+    "errorsPerTextTotal": "Errori per testo (totale)",
+    "errorsPerTextOf": "Errori di {category} per testo",
+    "dimTrend": {
+      "up": "migliorato",
+      "same": "stabile",
+      "down": "peggiorato"
+    },
+    "errTrend": {
+      "up": "meno errori",
+      "same": "stabile",
+      "down": "più errori"
+    },
+    "dim": {
+      "adeguatezza": "Adeguatezza",
+      "morfosintassi": "Morfosintassi",
+      "lessico": "Lessico",
+      "coesione": "Coesione"
+    },
+    "cat": {
+      "morfosintassi": "Morfosintassi",
+      "lessico": "Lessico",
+      "ortografia": "Ortografia",
+      "coesione": "Coesione",
+      "adeguatezza": "Adeguatezza",
+      "altro": "Altro"
+    }
   }
 }
