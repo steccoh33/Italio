@@ -89,7 +89,7 @@ function buildTutorInstruction({
 
   let stateInstruction: string;
   if (isFirstTurn) {
-    stateInstruction = `È l'INIZIO della sessione. In questo turno: (1) proponi UNA consegna adatta al livello ${level}, scegliendo il tipo di testo tra quelli consentiti qui sotto e un tema semplice e vicino allo studente; (2) mettila nel campo "consigna" (tipo di testo, tema e lunghezza); (3) nel campo "message" saluta brevemente, presenta la consegna e fai la PRIMA domanda di pianificazione (come iniziare il testo: saluto/apertura). phase = "planning", answered = false.`;
+    stateInstruction = `È l'INIZIO della pianificazione: lo studente ha già ACCETTATO la consegna (è indicata sopra). In questo turno NON proporre una nuova consegna: nel campo "message" saluta brevemente, richiama la consegna in poche parole e fai la PRIMA domanda di pianificazione (come iniziare il testo: saluto/apertura). phase = "planning", answered = false. Il campo "consigna" resta vuoto.`;
   } else if (forceClose) {
     stateInstruction = `La conversazione è già stata lunga. Valida brevemente l'ultimo messaggio dello studente (con un indizio se serve) e poi ${closing} answered = false.`;
   } else {
@@ -129,6 +129,85 @@ Tono incoraggiante e mai umiliante. Messaggi BREVI (massimo 3-4 frasi corte). Un
 ${stateInstruction}
 
 Rispondi ESCLUSIVAMENTE con l'oggetto JSON richiesto.`;
+}
+
+/** Cuántas consignas distintas puede pedir el alumno en total (la inicial + 3 alternativas). */
+export const MAX_CONSIGNA_PROPOSALS = 4;
+
+const CONSIGNA_SCHEMA: Schema = {
+  type: Type.OBJECT,
+  properties: {
+    consigna: {
+      type: Type.STRING,
+      description:
+        "La consegna proposta: tipo di testo, tema e lunghezza, in italiano semplice e calibrato sul livello. Una o due frasi.",
+    },
+  },
+  required: ["consigna"],
+};
+
+/**
+ * Propone una consigna del nivel del alumno, distinta de las ya propuestas.
+ * Es una llamada aparte del chat: el alumno puede pedir otra antes de empezar a planificar.
+ */
+export async function proposeConsigna({
+  targetLevel,
+  previous,
+}: {
+  targetLevel: CilsLevel;
+  previous: string[];
+}): Promise<string> {
+  const guides = getGuidesForLevel(targetLevel)
+    .map((guide) => `- ${guide.title.it}: ${guide.whatIsIt.it}`)
+    .join("\n");
+  const already = previous.length
+    ? `\n=== CONSEGNE GIÀ PROPOSTE (proponine una DIVERSA: cambia il tipo di testo o, almeno, il tema) ===\n${previous.map((p) => `- ${p}`).join("\n")}\n`
+    : "";
+
+  const instruction = `Sei un tutor di scrittura per studenti di italiano come lingua straniera, livello obiettivo CILS ${targetLevel}. Proponi UNA consegna di scrittura adatta a questo livello.
+
+Regole:
+- Scegli il tipo di testo SOLO tra quelli consentiti per il livello ${targetLevel} qui sotto, con un tema semplice e vicino alla vita dello studente.
+- La consegna deve indicare tipo di testo, tema e lunghezza (usa la lunghezza indicata per quel tipo di testo).
+- Deve essere realizzabile SOLO con le strutture del sillabo del livello ${targetLevel}: NON richiedere strutture di livelli superiori.
+- ${levelStyle(targetLevel)}
+- Scrivi solo la consegna (una o due frasi), senza salutare e senza fare domande.
+
+=== SILLABO ===
+${getSyllabusUpTo(targetLevel)}
+
+=== TIPI DI TESTO CONSENTITI PER IL LIVELLO ${targetLevel} ===
+${guides}
+${already}
+Rispondi ESCLUSIVAMENTE con l'oggetto JSON richiesto.`;
+
+  const response = await generateWithFallback({
+    contents: [{ role: "user", parts: [{ text: "Proponi una consegna." }] }],
+    config: {
+      systemInstruction: instruction,
+      responseMimeType: "application/json",
+      responseSchema: CONSIGNA_SCHEMA,
+    },
+  });
+
+  const raw = response.text;
+  if (!raw) {
+    throw new CorrectionRequestError("Gemini no devolvió contenido.");
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    throw new CorrectionRequestError("Gemini no devolvió un JSON válido.");
+  }
+
+  const consigna = (parsed as { consigna?: unknown } | null)?.consigna;
+  if (typeof consigna !== "string" || consigna.trim() === "") {
+    throw new CorrectionRequestError("Falta consigna en la respuesta.");
+  }
+
+  return consigna.trim().slice(0, 600);
 }
 
 function parseTurn(

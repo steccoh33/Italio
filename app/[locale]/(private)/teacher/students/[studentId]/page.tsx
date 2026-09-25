@@ -3,6 +3,8 @@ import { redirect, Link } from "@/i18n/navigation";
 import { getCurrentProfile } from "@/lib/auth/get-current-profile";
 import { createClient } from "@/lib/supabase/server";
 import { WritingHistoryList } from "@/components/writing/writing-history-list";
+import { GuidedSessionsList } from "@/components/writing/guided-sessions-list";
+import { fetchCompletedGuidedSessions } from "@/lib/guided/fetch-sessions";
 import type { WritingWithCorrection } from "@/lib/types/writing";
 
 export default async function TeacherStudentDetailPage({
@@ -25,7 +27,7 @@ export default async function TeacherStudentDetailPage({
 
   const supabase = await createClient();
 
-  const [{ data: student }, { data: rows }] = await Promise.all([
+  const [{ data: student }, { data: rows }, guidedSessions] = await Promise.all([
     supabase
       .from("profiles")
       .select("id, full_name")
@@ -39,7 +41,9 @@ export default async function TeacherStudentDetailPage({
         "id, student_id, target_level, prompt_text, content, status, created_at, corrections(writing_id, corrected_text, errors, assessment, level_verdict, level_demonstrated, general_comment, created_at)"
       )
       .eq("student_id", studentId)
+      .is("guided_session_id", null)
       .order("created_at", { ascending: false }),
+    fetchCompletedGuidedSessions(supabase, studentId),
   ]);
 
   // RLS already scopes profiles to the caller's own students, so a
@@ -66,6 +70,7 @@ export default async function TeacherStudentDetailPage({
   });
 
   const t = await getTranslations("TeacherStudentDetail");
+  const tGuided = await getTranslations("GuidedWriting");
 
   return (
     <div className="flex flex-1 flex-col gap-8 px-6 py-12 sm:px-10">
@@ -78,6 +83,16 @@ export default async function TeacherStudentDetailPage({
       </h1>
 
       <WritingHistoryList writings={writings} emptyMessage={t("noWritings")} />
+
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-xl font-bold text-foreground">
+          {tGuided("teacherSectionTitle")}
+        </h2>
+        <GuidedSessionsList
+          sessions={guidedSessions}
+          emptyMessage={tGuided("teacherNoSessions")}
+        />
+      </section>
     </div>
   );
 }

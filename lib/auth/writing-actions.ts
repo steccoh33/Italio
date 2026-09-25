@@ -27,6 +27,10 @@ export async function submitWritingAction(
   const content = ((formData.get("content") as string) ?? "").trim();
   const targetLevel = formData.get("targetLevel") as string;
   const assignmentId = ((formData.get("assignmentId") as string) ?? "").trim();
+  const guidedSessionId = ((formData.get("guidedSessionId") as string) ?? "").trim();
+  const planSummary = ((formData.get("planSummary") as string) ?? "")
+    .trim()
+    .slice(0, 1000);
 
   if (!content || !isCilsLevel(targetLevel)) {
     return { error: t("genericError"), result: null };
@@ -79,6 +83,42 @@ export async function submitWritingAction(
     promptText = assignment.instructions;
   }
 
+  if (guidedSessionId) {
+    // The consigna comes from the saved session, never from the client. The
+    // session must be the student's own (RLS + explicit filter).
+    const { data: session } = await supabase
+      .from("guided_sessions")
+      .select("prompt_text")
+      .eq("id", guidedSessionId)
+      .eq("student_id", userId)
+      .maybeSingle();
+
+    if (!session) {
+      return { error: t("genericError"), result: null };
+    }
+
+    const { data: existing } = await supabase
+      .from("writings")
+      .select("id")
+      .eq("guided_session_id", guidedSessionId)
+      .eq("status", "corrected")
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      return { error: t("guidedAlreadyDone"), result: null };
+    }
+
+    // Same stuck-pending release as tasks: one valid text per session.
+    await createAdminClient()
+      .from("writings")
+      .update({ status: "error" })
+      .eq("guided_session_id", guidedSessionId)
+      .eq("status", "pending")
+      .lt("created_at", new Date(Date.now() - 5 * 60 * 1000).toISOString());
+
+    promptText = session.prompt_text;
+  }
+
   const { data: writing, error: insertError } = await supabase
     .from("writings")
     .insert({
@@ -88,13 +128,17 @@ export async function submitWritingAction(
       content,
       status: "pending",
       assignment_id: assignmentId || null,
+      guided_session_id: guidedSessionId || null,
     })
     .select("id")
     .single();
 
   if (insertError?.code === "23505") {
-    // Unique index: this student already has a submission for this task.
-    return { error: t("alreadySubmitted"), result: null };
+    // Unique index: this student already has a submission for this task or session.
+    return {
+      error: guidedSessionId ? t("guidedAlreadyDone") : t("alreadySubmitted"),
+      result: null,
+    };
   }
 
   if (insertError || !writing) {
@@ -126,6 +170,18 @@ export async function submitWritingAction(
     }
 
     await admin.from("writings").update({ status: "corrected" }).eq("id", writing.id);
+
+    if (guidedSessionId) {
+      await admin
+        .from("guided_sessions")
+        .update({
+          status: "completed",
+          completed_at: new Date().toISOString(),
+          plan_summary: planSummary || null,
+        })
+        .eq("id", guidedSessionId)
+        .eq("student_id", userId);
+    }
 
     return {
       error: null,

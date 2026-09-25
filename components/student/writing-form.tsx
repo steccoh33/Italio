@@ -26,12 +26,15 @@ export function WritingForm({
   targetLevel,
   assignment,
   fixedPrompt,
+  guided,
 }: {
   targetLevel: CilsLevel;
   /** Si viene, el escrito responde a esa tarea y la consigna es la de la tarea. */
   assignment?: { id: string; instructions: string };
   /** Consigna fija (p. ej. la propuesta por el tutor): se muestra y se envía como consigna del escrito libre. */
   fixedPrompt?: { title: string; text: string };
+  /** Si viene, el texto es el final de una escritura guiada y queda ligado a esa sesión. */
+  guided?: { sessionId: string; planSummary: string };
 }) {
   const t = useTranslations("Writing");
   const tAssignments = useTranslations("Assignments");
@@ -68,6 +71,12 @@ export function WritingForm({
         <input type="hidden" name="targetLevel" value={targetLevel} />
         {assignment && (
           <input type="hidden" name="assignmentId" value={assignment.id} />
+        )}
+        {guided && (
+          <>
+            <input type="hidden" name="guidedSessionId" value={guided.sessionId} />
+            <input type="hidden" name="planSummary" value={guided.planSummary} />
+          </>
         )}
 
         <div className="flex flex-wrap items-start justify-between gap-3">

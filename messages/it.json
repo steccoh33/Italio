@@ -145,7 +145,7 @@
   "GuidedWriting": {
     "title": "Scrittura guidata",
     "subtitle": "Un tutor ti accompagna, passo dopo passo, a pianificare e scrivere il tuo testo. La conversazione è sempre in italiano.",
-    "intro": "Il tutor ti propone una consegna adatta al tuo livello e ti fa domande una alla volta per costruire il tuo piano. Non scrive al posto tuo: ti dà indizi e valida le tue risposte. Alla fine scrivi il testo completo e viene corretto.",
+    "intro": "Il tutor ti propone una consegna adatta al tuo livello; se non ti piace, puoi chiederne un'altra. Poi ti fa domande una alla volta per costruire il tuo piano. Non scrive al posto tuo: ti dà indizi e valida le tue risposte. Alla fine scrivi il testo completo e viene corretto.",
     "start": "Inizia",
     "consignaTitle": "La tua consegna",
     "tutorLabel": "Tutor",
@@ -158,7 +158,20 @@
     "retry": "Riprova",
     "backToPanel": "← Il tuo pannello",
     "genericError": "Non è stato possibile continuare con il tutor. Riprova.",
-    "modelBusy": "Il tutor è molto richiesto in questo momento. Riprova tra qualche minuto."
+    "modelBusy": "Il tutor è molto richiesto in questo momento. Riprova tra qualche minuto.",
+    "proposing": "Il tutor sta preparando una consegna…",
+    "proposedTitle": "Consegna proposta",
+    "accept": "Inizia con questa consegna",
+    "another": "Un'altra proposta",
+    "proposalCount": "Consegna {n} di {max}",
+    "maxProposals": "Hai già visto tutte le consegne possibili in questa sessione. Scegline una per iniziare.",
+    "historyTitle": "Le tue scritture guidate precedenti",
+    "noHistory": "Non hai ancora completato nessuna scrittura guidata.",
+    "viewSession": "Vedi testo e correzione",
+    "hideSession": "Nascondi",
+    "planSummary": "Il tuo piano (le tue risposte al tutor)",
+    "teacherSectionTitle": "Scritture guidate",
+    "teacherNoSessions": "Questo studente non ha ancora completato nessuna scrittura guidata."
   },
   "Assignments": {
     "sectionTitle": "Compiti",
@@ -237,7 +250,8 @@
     "statusError": "Si è verificato un errore nella correzione",
     "viewDetail": "Vedi correzione",
     "hideDetail": "Nascondi",
-    "createdAt": "Inviato il {date}"
+    "createdAt": "Inviato il {date}",
+    "guidedAlreadyDone": "Hai già completato questa scrittura guidata."
   },
   "Correction": {
     "verdictBelow": "Sotto il livello {level}",

@@ -29,6 +29,7 @@ export default async function StudentPage() {
       "id, student_id, target_level, prompt_text, content, status, created_at, corrections(writing_id, corrected_text, errors, assessment, level_verdict, level_demonstrated, general_comment, created_at)"
     )
     .eq("student_id", profile.userId)
+    .is("guided_session_id", null)
     .order("created_at", { ascending: false });
 
   const writings: WritingWithCorrection[] = (data ?? []).map((row) => {

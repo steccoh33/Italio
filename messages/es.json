@@ -145,7 +145,7 @@
   "GuidedWriting": {
     "title": "Escritura guiada",
     "subtitle": "Un tutor te acompaña, paso a paso, a planificar y escribir tu texto. La conversación es siempre en italiano.",
-    "intro": "El tutor te propone una consigna de tu nivel y te hace preguntas de a una para armar tu plan. No escribe por vos: te da pistas y valida tus respuestas. Al final escribís tu texto completo y se corrige.",
+    "intro": "El tutor te propone una consigna de tu nivel; si no te gusta, podés pedir otra. Después te hace preguntas de a una para armar tu plan. No escribe por vos: te da pistas y valida tus respuestas. Al final escribís tu texto completo y se corrige.",
     "start": "Empezar",
     "consignaTitle": "Tu consigna",
     "tutorLabel": "Tutor",
@@ -158,7 +158,20 @@
     "retry": "Reintentar",
     "backToPanel": "← Tu panel",
     "genericError": "No pudimos continuar con el tutor. Intentá de nuevo.",
-    "modelBusy": "El tutor está con mucha demanda en este momento. Probá de nuevo en unos minutos."
+    "modelBusy": "El tutor está con mucha demanda en este momento. Probá de nuevo en unos minutos.",
+    "proposing": "El tutor está preparando una consigna…",
+    "proposedTitle": "Consigna propuesta",
+    "accept": "Empezar con esta consigna",
+    "another": "Otra consigna",
+    "proposalCount": "Consigna {n} de {max}",
+    "maxProposals": "Ya viste todas las consignas posibles en esta sesión. Elegí una para empezar.",
+    "historyTitle": "Tus escrituras guiadas anteriores",
+    "noHistory": "Todavía no completaste ninguna escritura guiada.",
+    "viewSession": "Ver texto y corrección",
+    "hideSession": "Ocultar",
+    "planSummary": "Tu plan (tus respuestas al tutor)",
+    "teacherSectionTitle": "Escrituras guiadas",
+    "teacherNoSessions": "Este alumno todavía no completó ninguna escritura guiada."
   },
   "Assignments": {
     "sectionTitle": "Tareas",
@@ -237,7 +250,8 @@
     "statusError": "Hubo un error al corregir",
     "viewDetail": "Ver corrección",
     "hideDetail": "Ocultar",
-    "createdAt": "Enviado el {date}"
+    "createdAt": "Enviado el {date}",
+    "guidedAlreadyDone": "Ya completaste esta escritura guiada."
   },
   "Correction": {
     "verdictBelow": "Por debajo del nivel {level}",
