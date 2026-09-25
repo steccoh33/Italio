@@ -22,8 +22,16 @@ function countWords(text: string): number {
   return trimmed === "" ? 0 : trimmed.split(/\s+/).length;
 }
 
-export function WritingForm({ targetLevel }: { targetLevel: CilsLevel }) {
+export function WritingForm({
+  targetLevel,
+  assignment,
+}: {
+  targetLevel: CilsLevel;
+  /** Si viene, el escrito responde a esa tarea y la consigna es la de la tarea. */
+  assignment?: { id: string; instructions: string };
+}) {
   const t = useTranslations("Writing");
+  const tAssignments = useTranslations("Assignments");
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const wasPending = useRef(false);
@@ -55,6 +63,9 @@ export function WritingForm({ targetLevel }: { targetLevel: CilsLevel }) {
         className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5"
       >
         <input type="hidden" name="targetLevel" value={targetLevel} />
+        {assignment && (
+          <input type="hidden" name="assignmentId" value={assignment.id} />
+        )}
 
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="flex flex-col gap-1">
@@ -68,16 +79,27 @@ export function WritingForm({ targetLevel }: { targetLevel: CilsLevel }) {
           <GuideDrawer targetLevel={targetLevel} />
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="promptText">{t("promptLabel")}</Label>
-          <Input
-            id="promptText"
-            name="promptText"
-            type="text"
-            placeholder={t("promptPlaceholder")}
-          />
-          <p className="text-xs text-muted-foreground">{t("promptHint")}</p>
-        </div>
+        {assignment ? (
+          <div className="flex flex-col gap-1.5 rounded-xl border border-azul/30 bg-azul/5 p-4">
+            <p className="text-xs font-medium text-azul">
+              {tAssignments("taskInstructions")}
+            </p>
+            <p className="whitespace-pre-wrap text-sm text-foreground">
+              {assignment.instructions}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="promptText">{t("promptLabel")}</Label>
+            <Input
+              id="promptText"
+              name="promptText"
+              type="text"
+              placeholder={t("promptPlaceholder")}
+            />
+            <p className="text-xs text-muted-foreground">{t("promptHint")}</p>
+          </div>
+        )}
 
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="content">{t("contentLabel")}</Label>

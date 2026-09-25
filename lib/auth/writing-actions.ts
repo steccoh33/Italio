@@ -23,9 +23,10 @@ export async function submitWritingAction(
 ): Promise<SubmitWritingState> {
   const t = await getTranslations("Writing");
 
-  const promptText = ((formData.get("promptText") as string) ?? "").trim();
+  let promptText = ((formData.get("promptText") as string) ?? "").trim();
   const content = ((formData.get("content") as string) ?? "").trim();
   const targetLevel = formData.get("targetLevel") as string;
+  const assignmentId = ((formData.get("assignmentId") as string) ?? "").trim();
 
   if (!content || !isCilsLevel(targetLevel)) {
     return { error: t("genericError"), result: null };
@@ -39,6 +40,45 @@ export async function submitWritingAction(
     return { error: t("genericError"), result: null };
   }
 
+  if (assignmentId) {
+    // The prompt comes from the database, never from the client. RLS only
+    // returns the assignment if the student belongs to its class.
+    const { data: assignment } = await supabase
+      .from("assignments")
+      .select("instructions")
+      .eq("id", assignmentId)
+      .maybeSingle();
+
+    if (!assignment) {
+      return { error: t("genericError"), result: null };
+    }
+
+    const { data: existing } = await supabase
+      .from("writings")
+      .select("id")
+      .eq("assignment_id", assignmentId)
+      .eq("student_id", userId)
+      .eq("status", "corrected")
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      return { error: t("alreadySubmitted"), result: null };
+    }
+
+    // A submission stuck in "pending" (e.g. the server died mid-correction)
+    // would block a retry through the one-submission-per-task index, so
+    // anything pending for more than 5 minutes is released as an error.
+    await createAdminClient()
+      .from("writings")
+      .update({ status: "error" })
+      .eq("assignment_id", assignmentId)
+      .eq("student_id", userId)
+      .eq("status", "pending")
+      .lt("created_at", new Date(Date.now() - 5 * 60 * 1000).toISOString());
+
+    promptText = assignment.instructions;
+  }
+
   const { data: writing, error: insertError } = await supabase
     .from("writings")
     .insert({
@@ -47,9 +87,15 @@ export async function submitWritingAction(
       prompt_text: promptText || null,
       content,
       status: "pending",
+      assignment_id: assignmentId || null,
     })
     .select("id")
     .single();
+
+  if (insertError?.code === "23505") {
+    // Unique index: this student already has a submission for this task.
+    return { error: t("alreadySubmitted"), result: null };
+  }
 
   if (insertError || !writing) {
     return { error: t("genericError"), result: null };

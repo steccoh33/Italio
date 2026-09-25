@@ -59,12 +59,20 @@ export default async function StudentPage() {
           </h1>
           <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
-        <Link
-          href="/student/guide"
-          className={buttonVariants({ variant: "secondary" })}
-        >
-          {t("guidesLink")}
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/student/tasks"
+            className={buttonVariants({ variant: "secondary" })}
+          >
+            {t("tasksLink")}
+          </Link>
+          <Link
+            href="/student/guide"
+            className={buttonVariants({ variant: "secondary" })}
+          >
+            {t("guidesLink")}
+          </Link>
+        </div>
       </div>
 
       <StudentPanelTabs targetLevel={profile.targetLevel} writings={writings} />
