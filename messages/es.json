@@ -139,7 +139,26 @@
     "writeTab": "Escribir",
     "historyTab": "Tus escritos",
     "guidesLink": "Guías de escritura",
-    "tasksLink": "Tareas"
+    "tasksLink": "Tareas",
+    "guidedLink": "Escritura guiada"
+  },
+  "GuidedWriting": {
+    "title": "Escritura guiada",
+    "subtitle": "Un tutor te acompaña, paso a paso, a planificar y escribir tu texto. La conversación es siempre en italiano.",
+    "intro": "El tutor te propone una consigna de tu nivel y te hace preguntas de a una para armar tu plan. No escribe por vos: te da pistas y valida tus respuestas. Al final escribís tu texto completo y se corrige.",
+    "start": "Empezar",
+    "consignaTitle": "Tu consigna",
+    "tutorLabel": "Tutor",
+    "youLabel": "Vos",
+    "thinking": "El tutor está escribiendo…",
+    "answerPlaceholder": "Escribí tu respuesta (en italiano)…",
+    "send": "Enviar",
+    "writeNow": "Ahora escribí tu texto",
+    "restart": "Empezar de nuevo",
+    "retry": "Reintentar",
+    "backToPanel": "← Tu panel",
+    "genericError": "No pudimos continuar con el tutor. Intentá de nuevo.",
+    "modelBusy": "El tutor está con mucha demanda en este momento. Probá de nuevo en unos minutos."
   },
   "Assignments": {
     "sectionTitle": "Tareas",

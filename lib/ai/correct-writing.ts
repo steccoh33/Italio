@@ -1,34 +1,10 @@
-import { GoogleGenAI, Type, type Schema } from "@google/genai";
+import { Type, type Schema } from "@google/genai";
+import { CorrectionRequestError, generateWithFallback } from "@/lib/ai/gemini-chain";
+import { SYLLABUS } from "@/lib/ai/syllabus";
 import type { CilsLevel } from "@/lib/types/profile";
 import type { CorrectionPayload } from "@/lib/types/writing";
 
-// Modelos gratuitos solo para desarrollo. En producción: gemini-3.8-flash
-// con facturación (una sola línea: GEMINI_MODEL o la constante de producción).
-const PRODUCTION_MODEL = "gemini-3.8-flash";
-
-// Cadena de respaldo SOLO en desarrollo, de más liviano/con más cupo a más
-// pesado. Confirmados como existentes y accesibles con la key de desarrollo.
-const DEV_FALLBACK_MODELS = [
-  "gemini-flash-lite-latest",
-  "gemini-3.5-flash-lite",
-  "gemini-3.1-flash-lite",
-  "gemini-3.5-flash",
-  "gemini-3.6-flash",
-  "gemini-3.7-flash",
-];
-
-// Presupuesto total de espera antes de rendirse y mostrar "mucha demanda".
-const TOTAL_BUDGET_MS = 35_000;
-const PER_REQUEST_TIMEOUT_MS = 20_000;
-
-function getModelChain(): string[] {
-  const forced = process.env.GEMINI_MODEL?.trim();
-  if (process.env.NODE_ENV === "production") {
-    return [forced || PRODUCTION_MODEL];
-  }
-  const chain = forced ? [forced, ...DEV_FALLBACK_MODELS] : DEV_FALLBACK_MODELS;
-  return [...new Set(chain)];
-}
+export { CorrectionRequestError };
 
 const ASSESSMENT_DIMENSION_SCHEMA: Schema = {
   type: Type.OBJECT,
@@ -110,14 +86,6 @@ const CORRECTION_SCHEMA: Schema = {
   ],
 };
 
-const SYLLABUS = `=== SILLABO PER LIVELLO (cosa si richiede a ogni livello) ===
-A1: essere/avere, modali (potere/dovere/volere), verbi regolari all'indicativo presente, passato prossimo (scelta dell'ausiliare; NON si richiede l'accordo del participio), infinito presente, imperativo. Frase semplice; coordinate e/ma; subordinate causali (perché), temporali (quando), finali implicite (per+infinito), relative, ipotetiche con se. Testi molto brevi (20-40 / 15-30 parole).
-A2: AGGIUNGE accordo nome-aggettivo, pronomi atoni (lo/la/li/le), preposizioni articolate (di/a/da/su), imperfetto, subordinate con "che" (oggettive, relative con che), ipotetiche con se. NON ancora: condizionale, futuro, congiuntivo, passato remoto. (30-60 / 25-50 parole).
-B1: AGGIUNGE comparativo/superlativo, pronomi relativi, riflessivi, indefiniti (ogni/ciascuno/nessuno/qualche), possessivi/dimostrativi/interrogativi, CONDIZIONALE PRESENTE, subordinate relative esplicite, oggettive implicite, temporali/causali/dichiarative. NON ancora: CONGIUNTIVO (è B2), futuro, condizionale passato, passato remoto. (100-120 / 50-80 parole). Descrizione/narrazione/lettera informale, breve saggio.
-B2: AGGIUNGE CONGIUNTIVO presente e imperfetto, condizionale passato, futuro semplice e anteriore, passato remoto, trapassato prossimo, forma passiva (riconoscimento), pronomi combinati, verbi impersonali; subordinate soggettive, finali, comparative, condizionali ipotesi reale, concessive/consecutive esplicite. REGISTRO FORMALE. NON ancora: congiuntivo passato/trapassato, gerundio, nominalizzazione, ipotesi irreale (C1). (120-140 / 80-100 parole). Saggio breve + lettera formale.
-C1: AGGIUNGE congiuntivo passato e trapassato, gerundio, participio, forma passiva completa, verbi pronominali/difettivi/fraseologici, periodo ipotetico completo (possibile e irreale), concessive/consecutive implicite, NOMINALIZZAZIONE, discorso diretto e indiretto. Lessico ampio, parafrasi, idiomatico. (160-180 / 100-120 parole). Saggio + lettera formale.
-C2: padronanza piena: profili sintattici dell'italiano contemporaneo, meccanismi del parlato (dislocazioni a sinistra, frasi scisse, segnali discorsivi), registri, sinonimi, connotazione, idiomatico. (200-250 / 120-150 parole). Saggio + lettera formale.`;
-
 function buildSystemInstruction(targetLevel: CilsLevel): string {
   return `Sei un correttore esperto di italiano come lingua straniera, specializzato nella certificazione CILS. Correggi SEMPRE misurando il testo dello studente contro il sillabo del livello obiettivo dello studente, che è: ${targetLevel}.
 
@@ -153,15 +121,6 @@ function buildUserContent(promptText: string | null, content: string): string {
   return parts.join("\n\n");
 }
 
-export class CorrectionRequestError extends Error {
-  constructor(
-    message: string,
-    readonly kind: "busy" | "other" = "other"
-  ) {
-    super(message);
-  }
-}
-
 /**
  * Calls Gemini server-side to correct a student's writing. Never call this
  * from client code — it needs GOOGLE_GEMINI_API_KEY, which must stay
@@ -176,56 +135,14 @@ export async function correctWriting({
   promptText: string | null;
   content: string;
 }): Promise<CorrectionPayload> {
-  const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new CorrectionRequestError("GOOGLE_GEMINI_API_KEY no está configurada.");
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
-
-  const deadline = Date.now() + TOTAL_BUDGET_MS;
-  let response;
-
-  for (const model of getModelChain()) {
-    const remaining = deadline - Date.now();
-    if (remaining <= 1000) break;
-
-    try {
-      response = await ai.models.generateContent({
-        model,
-        contents: buildUserContent(promptText, content),
-        config: {
-          systemInstruction: buildSystemInstruction(targetLevel),
-          responseMimeType: "application/json",
-          responseSchema: CORRECTION_SCHEMA,
-          abortSignal: AbortSignal.timeout(
-            Math.min(remaining, PER_REQUEST_TIMEOUT_MS)
-          ),
-        },
-      });
-      break;
-    } catch (err) {
-      const status = (err as { status?: number }).status;
-      const name = (err as Error).name;
-      const skippable =
-        status === 503 ||
-        status === 429 ||
-        status === 404 ||
-        name === "TimeoutError" ||
-        name === "AbortError";
-      console.error(`Gemini ${model} failed:`, status ?? name);
-      if (!skippable) {
-        throw new CorrectionRequestError((err as Error).message, "other");
-      }
-    }
-  }
-
-  if (!response) {
-    throw new CorrectionRequestError(
-      "Ningún modelo disponible respondió a tiempo.",
-      "busy"
-    );
-  }
+  const response = await generateWithFallback({
+    contents: buildUserContent(promptText, content),
+    config: {
+      systemInstruction: buildSystemInstruction(targetLevel),
+      responseMimeType: "application/json",
+      responseSchema: CORRECTION_SCHEMA,
+    },
+  });
 
   const rawText = response.text;
   if (!rawText) {

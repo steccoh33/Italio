@@ -25,10 +25,13 @@ function countWords(text: string): number {
 export function WritingForm({
   targetLevel,
   assignment,
+  fixedPrompt,
 }: {
   targetLevel: CilsLevel;
   /** Si viene, el escrito responde a esa tarea y la consigna es la de la tarea. */
   assignment?: { id: string; instructions: string };
+  /** Consigna fija (p. ej. la propuesta por el tutor): se muestra y se envía como consigna del escrito libre. */
+  fixedPrompt?: { title: string; text: string };
 }) {
   const t = useTranslations("Writing");
   const tAssignments = useTranslations("Assignments");
@@ -79,13 +82,18 @@ export function WritingForm({
           <GuideDrawer targetLevel={targetLevel} />
         </div>
 
-        {assignment ? (
+        {assignment || fixedPrompt ? (
           <div className="flex flex-col gap-1.5 rounded-xl border border-azul/30 bg-azul/5 p-4">
+            {fixedPrompt && (
+              <input type="hidden" name="promptText" value={fixedPrompt.text} />
+            )}
             <p className="text-xs font-medium text-azul">
-              {tAssignments("taskInstructions")}
+              {assignment
+                ? tAssignments("taskInstructions")
+                : fixedPrompt?.title}
             </p>
             <p className="whitespace-pre-wrap text-sm text-foreground">
-              {assignment.instructions}
+              {assignment ? assignment.instructions : fixedPrompt?.text}
             </p>
           </div>
         ) : (

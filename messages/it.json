@@ -139,7 +139,26 @@
     "writeTab": "Scrivi",
     "historyTab": "I tuoi scritti",
     "guidesLink": "Guide di scrittura",
-    "tasksLink": "Compiti"
+    "tasksLink": "Compiti",
+    "guidedLink": "Scrittura guidata"
+  },
+  "GuidedWriting": {
+    "title": "Scrittura guidata",
+    "subtitle": "Un tutor ti accompagna, passo dopo passo, a pianificare e scrivere il tuo testo. La conversazione è sempre in italiano.",
+    "intro": "Il tutor ti propone una consegna adatta al tuo livello e ti fa domande una alla volta per costruire il tuo piano. Non scrive al posto tuo: ti dà indizi e valida le tue risposte. Alla fine scrivi il testo completo e viene corretto.",
+    "start": "Inizia",
+    "consignaTitle": "La tua consegna",
+    "tutorLabel": "Tutor",
+    "youLabel": "Tu",
+    "thinking": "Il tutor sta scrivendo…",
+    "answerPlaceholder": "Scrivi la tua risposta…",
+    "send": "Invia",
+    "writeNow": "Ora scrivi il tuo testo",
+    "restart": "Ricomincia",
+    "retry": "Riprova",
+    "backToPanel": "← Il tuo pannello",
+    "genericError": "Non è stato possibile continuare con il tutor. Riprova.",
+    "modelBusy": "Il tutor è molto richiesto in questo momento. Riprova tra qualche minuto."
   },
   "Assignments": {
     "sectionTitle": "Compiti",
