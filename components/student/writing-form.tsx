@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CorrectionResult } from "@/components/writing/correction-result";
+import { GuideDrawer } from "@/components/guides/guide-drawer";
 
 const initialState: SubmitWritingState = { error: null, result: null };
 
@@ -55,13 +56,16 @@ export function WritingForm({ targetLevel }: { targetLevel: CilsLevel }) {
       >
         <input type="hidden" name="targetLevel" value={targetLevel} />
 
-        <div className="flex flex-col gap-1">
-          <p className="text-xs font-medium text-muted-foreground">
-            {t("targetLevelLabel")}
-          </p>
-          <p className="font-heading text-2xl font-bold tracking-tight text-azul">
-            {info.label}
-          </p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex flex-col gap-1">
+            <p className="text-xs font-medium text-muted-foreground">
+              {t("targetLevelLabel")}
+            </p>
+            <p className="font-heading text-2xl font-bold tracking-tight text-azul">
+              {info.label}
+            </p>
+          </div>
+          <GuideDrawer targetLevel={targetLevel} />
         </div>
 
         <div className="flex flex-col gap-1.5">
