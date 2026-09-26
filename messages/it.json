@@ -25,7 +25,9 @@
     "finalBody": "Crea il tuo account in pochi minuti.",
     "footerRights": "Tutti i diritti riservati.",
     "privacy": "Privacy",
-    "terms": "Termini"
+    "terms": "Termini",
+    "about": "Chi siamo",
+    "contact": "Contatto"
   },
   "Auth": {
     "fullNameLabel": "Nome e cognome",
@@ -434,5 +436,23 @@
   "Legal": {
     "back": "Torna alla home",
     "spanishNotice": "I documenti legali sono redatti in spagnolo, secondo la normativa argentina."
+  },
+  "About": {
+    "metaTitle": "Chi siamo — Italio",
+    "back": "Torna alla home",
+    "title": "Chi siamo",
+    "intro": "Italio nasce in aula, da un insegnante di italiano.",
+    "whoTitle": "Chi c’è dietro Italio",
+    "who1": "Sono Hernán, insegnante di italiano. Il mio legame con questa lingua è iniziato da bambino: ho vissuto in Italia dal 1999, dove ho frequentato parte delle elementari fino alla terza media. Alla fine del 2003 sono tornato in Argentina per finire le superiori.",
+    "who2": "Dal 2012 mi dedico all’insegnamento dell’italiano. Ho insegnato alla scuola Dante Alighieri di La Rioja fino alla fine del 2016, poi ho preso una decisione importante: tornare in Italia per perfezionare la lingua immergendomi completamente nella lingua e nella cultura. Ci ho vissuto dal 2017 al 2024: anni in cui ho lavorato, vissuto e assorbito non solo la lingua, ma anche la cultura e i modi di dire che non si imparano sui libri.",
+    "who3": "Da febbraio 2026 insegno alla scuola Dante Alighieri di Bariloche, dove lavoro ancora oggi.",
+    "whyTitle": "Perché ho creato Italio",
+    "why1": "Insegnando ho notato una cosa: tra tutte le abilità, la scrittura è quella che costa di più agli studenti e, allo stesso tempo, la più difficile e faticosa da correggere per un insegnante, perché richiede moltissimo tempo. Italio nasce da qui: dall’idea di dare a ogni studente una correzione immediata e pensata per il suo livello, e di alleggerire all’insegnante un compito che porta via tanto tempo.",
+    "why2": "L’ho fatto per i miei studenti, e ora lo condivido con altri insegnanti e scuole.",
+    "contactTitle": "Contatto",
+    "contactBody": "Sei una scuola o un insegnante e vuoi usare Italio? Scrivimi e troviamo il piano su misura per te.",
+    "freeTrial": "È disponibile una prova gratuita per conoscere la piattaforma.",
+    "emailLabel": "Scrivimi a",
+    "monogramAlt": "Hernán, fondatore di Italio"
   }
 }

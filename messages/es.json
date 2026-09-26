@@ -25,7 +25,9 @@
     "finalBody": "Creá tu cuenta en pocos minutos.",
     "footerRights": "Todos los derechos reservados.",
     "privacy": "Privacidad",
-    "terms": "Términos"
+    "terms": "Términos",
+    "about": "Sobre Italio",
+    "contact": "Contacto"
   },
   "Auth": {
     "fullNameLabel": "Nombre y apellido",
@@ -434,5 +436,22 @@
   "Legal": {
     "back": "Volver al inicio",
     "spanishNotice": "Los documentos legales están redactados en español, conforme a la normativa argentina."
+  },
+  "About": {
+    "metaTitle": "Sobre Italio",
+    "back": "Volver al inicio",
+    "title": "Sobre Italio",
+    "intro": "Italio nació en el aula, de la mano de un profesor de italiano.",
+    "whoTitle": "Quién está detrás de Italio",
+    "who1": "Soy Hernán, profesor de italiano. Mi vínculo con esta lengua empezó de chico: viví en Italia desde 1999, donde cursé parte de la escuela primaria hasta la terza media. A fines de 2003 volví a Argentina para terminar la secundaria.",
+    "who2": "Desde 2012 me dedico a enseñar italiano. Di clases en la escuela Dante Alighieri de La Rioja hasta fines de 2016, y después tomé una decisión importante: volver a Italia para perfeccionar el idioma sumergiéndome de lleno en la lengua y la cultura. Viví allá desde 2017 hasta 2024 — años en los que trabajé, viví y absorbí no solo el idioma, sino también la cultura y los modos de decir que no se aprenden en los libros.",
+    "who3": "Desde febrero de 2026 enseño en la escuela Dante Alighieri de Bariloche, donde sigo hoy.",
+    "whyTitle": "¿Por qué creé Italio?",
+    "why1": "Enseñando, noté algo: de todas las habilidades, la escritura es la que más les cuesta a los alumnos — y, al mismo tiempo, la más difícil y trabajosa de corregir para un profesor, porque lleva muchísimo tiempo. Italio nació de ahí: de la idea de darle a cada alumno una corrección inmediata y orientada a su nivel, y de aliviarle al docente esa tarea que tanto tiempo consume. Lo hice por mis propios alumnos, y ahora lo comparto con más profesores y escuelas.",
+    "contactTitle": "Contacto",
+    "contactBody": "¿Sos una escuela o un profesor y querés usar Italio en tus clases? Escribime y armamos un plan a tu medida.",
+    "freeTrial": "Hay una prueba gratuita disponible para conocer la plataforma.",
+    "emailLabel": "Escribime a",
+    "monogramAlt": "Hernán, creador de Italio"
   }
 }

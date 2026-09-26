@@ -62,6 +62,14 @@ export default async function Home() {
                     {t("signIn")}
                   </Link>
                 </div>
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+                  <Link href="/chi-siamo" className="text-azul underline-offset-4 hover:underline">
+                    {t("about")}
+                  </Link>
+                  <Link href="/chi-siamo#contatto" className="text-azul underline-offset-4 hover:underline">
+                    {t("contact")}
+                  </Link>
+                </div>
               </div>
 
               {/* Visual: mascot placeholder + a sample correction */}
@@ -198,6 +206,9 @@ export default async function Home() {
             </span>
           </div>
           <nav className="flex items-center gap-5 text-sm text-muted-foreground">
+            <Link href="/chi-siamo" className="hover:text-foreground">
+              {t("about")}
+            </Link>
             <Link href="/privacy" className="hover:text-foreground">
               {t("privacy")}
             </Link>
