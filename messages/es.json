@@ -45,7 +45,9 @@
     "invalidTeacherCode": "Ese código de profesor no existe. Revisá que lo hayas escrito bien.",
     "genericError": "No pudimos completar el registro. Intentá de nuevo.",
     "haveAccount": "¿Ya tenés cuenta?",
-    "loginLink": "Iniciar sesión"
+    "loginLink": "Iniciar sesión",
+    "consentLabel": "Leí y acepto los <terms>Términos y Condiciones</terms> y la <privacy>Política de Privacidad</privacy>.",
+    "consentRequired": "Para registrarte tenés que aceptar los Términos y Condiciones y la Política de Privacidad."
   },
   "Login": {
     "title": "Iniciar sesión",
@@ -428,5 +430,9 @@
     "genericError": "No pudimos generar el ejercicio. Intentá de nuevo.",
     "modelBusy": "El generador está con mucha demanda en este momento. Probá de nuevo en unos minutos.",
     "autoCorrectNotice": "La autocorrección es una ayuda automática y puede tener errores: si creés que tu respuesta es correcta, consultá con tu profesor."
+  },
+  "Legal": {
+    "back": "Volver al inicio",
+    "spanishNotice": "Los documentos legales están redactados en español, conforme a la normativa argentina."
   }
 }

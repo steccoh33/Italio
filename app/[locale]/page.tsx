@@ -198,13 +198,12 @@ export default async function Home() {
             </span>
           </div>
           <nav className="flex items-center gap-5 text-sm text-muted-foreground">
-            {/* Placeholders: the real pages are still to be written. */}
-            <a href="#" className="hover:text-foreground">
+            <Link href="/privacy" className="hover:text-foreground">
               {t("privacy")}
-            </a>
-            <a href="#" className="hover:text-foreground">
+            </Link>
+            <Link href="/terminos" className="hover:text-foreground">
               {t("terms")}
-            </a>
+            </Link>
           </nav>
           <LocaleSwitcher />
         </div>

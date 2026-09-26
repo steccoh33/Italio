@@ -5,6 +5,7 @@ import { redirect } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isCilsLevel } from "@/lib/cils-levels";
+import { LEGAL_VERSION } from "@/lib/legal/legal-content";
 
 export type AuthActionState = {
   error: string | null;
@@ -31,6 +32,10 @@ export async function registerAction(
 
   if (!fullName) {
     return { error: t("genericError") };
+  }
+
+  if (formData.get("acceptTerms") !== "on") {
+    return { error: t("consentRequired") };
   }
 
   const admin = createAdminClient();
@@ -77,7 +82,9 @@ export async function registerAction(
 
   const email = `${loginCode}@${INTERNAL_EMAIL_DOMAIN}`;
 
-  const { error: createError } = await admin.auth.admin.createUser({
+  const acceptedAt = new Date().toISOString();
+
+  const { data: created, error: createError } = await admin.auth.admin.createUser({
     email,
     password: loginCode,
     email_confirm: true,
@@ -93,7 +100,19 @@ export async function registerAction(
           },
   });
 
-  if (createError) {
+  if (createError || !created.user) {
+    return { error: t("genericError") };
+  }
+
+  // Constancia de cuándo y qué versión de los términos aceptó. Sin ella no
+  // dejamos la cuenta creada: se deshace el alta.
+  const { error: consentError } = await admin
+    .from("profiles")
+    .update({ terms_accepted_at: acceptedAt, terms_version: LEGAL_VERSION })
+    .eq("id", created.user.id);
+
+  if (consentError) {
+    await admin.auth.admin.deleteUser(created.user.id);
     return { error: t("genericError") };
   }
 

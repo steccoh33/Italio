@@ -94,6 +94,40 @@ export function RegisterForm() {
         </>
       )}
 
+      <div className="flex items-start gap-2.5">
+        <input
+          id="acceptTerms"
+          name="acceptTerms"
+          type="checkbox"
+          required
+          className="mt-0.5 size-4 shrink-0 cursor-pointer accent-azul"
+        />
+        <label htmlFor="acceptTerms" className="text-sm leading-snug text-foreground">
+          {t.rich("consentLabel", {
+            terms: (chunks) => (
+              <Link
+                href="/terminos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-azul underline underline-offset-2"
+              >
+                {chunks}
+              </Link>
+            ),
+            privacy: (chunks) => (
+              <Link
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-azul underline underline-offset-2"
+              >
+                {chunks}
+              </Link>
+            ),
+          })}
+        </label>
+      </div>
+
       {state.error && (
         <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo">
           {state.error}
