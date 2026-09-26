@@ -64,11 +64,11 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Visual: mascot space + a sample correction */}
-            <div className="relative mx-auto w-full max-w-md pb-10 sm:pb-12">
+            {/* Visual: the mascot + a sample correction */}
+            <div className="mx-auto flex w-full max-w-md flex-col">
               <Mascotte variant="hero" />
 
-              <div className="absolute right-0 bottom-0 left-6 flex flex-col gap-2 rounded-2xl border border-border bg-card p-4 shadow-sm sm:left-10">
+              <div className="relative mt-3 flex flex-col gap-2 rounded-2xl border border-border bg-card p-4 shadow-sm sm:mx-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-medium text-muted-foreground">
                     {t("sampleLabel")}

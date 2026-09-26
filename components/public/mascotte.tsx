@@ -1,62 +1,41 @@
-import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
 /**
- * Espacio de la mascota (lorito geométrico). Hoy es un placeholder:
- * para poner la mascota definitiva basta con reemplazar el contenido de
- * este componente; los lugares donde se usa no cambian.
+ * La mascota de Italio: un carpincho. Está aislada en este componente: para
+ * cambiarla basta con tocar este archivo; los lugares donde se usa (landing
+ * y /chi-siamo) no cambian.
  *
- * - "hero": recuadro grande de la landing.
- * - "about": recuadro chico de /chi-siamo (por ahora con el monograma).
+ * Siempre mira hacia el texto que la acompaña:
+ * - "hero": grande, a la DERECHA del texto de la landing → mira a la izquierda.
+ * - "about": chico, a la IZQUIERDA del título de /chi-siamo → mira a la derecha.
+ *
+ * Las imágenes (900x997) se dimensionan solo por ancho; el alto sale de su
+ * proporción, así nunca se deforman.
  */
-export async function Mascotte({
+export function Mascotte({
   variant = "hero",
 }: {
   variant?: "hero" | "about";
 }) {
-  const t = await getTranslations("PublicShell");
-
-  if (variant === "about") {
-    return (
-      <div
-        role="img"
-        aria-label={t("mascotteAboutAlt")}
-        className="relative flex size-32 items-center justify-center rounded-[2rem] bg-amarillo sm:size-44"
-      >
-        <span
-          className="font-heading text-6xl font-bold text-tinta sm:text-8xl"
-          aria-hidden="true"
-        >
-          H
-        </span>
-        <span
-          className="absolute top-3 right-3 size-3 rounded-full bg-rojo sm:size-4"
-          aria-hidden="true"
-        />
-        <span
-          className="absolute bottom-0 left-0 size-10 rounded-tr-2xl bg-azul-fondo sm:size-14"
-          aria-hidden="true"
-        />
-      </div>
-    );
-  }
+  const isHero = variant === "hero";
 
   return (
-    <div
-      role="img"
-      aria-label={t("mascotteHeroAlt")}
-      className="relative flex aspect-square w-full items-center justify-center rounded-[2rem] bg-amarillo"
-    >
-      <span className="text-8xl sm:text-9xl" aria-hidden="true">
-        🦜
-      </span>
-      <span
-        className="absolute top-6 right-6 size-4 rounded-full bg-rojo"
-        aria-hidden="true"
-      />
-      <span
-        className="absolute bottom-0 left-0 size-24 rounded-tr-[2rem] bg-azul-fondo sm:size-28"
-        aria-hidden="true"
-      />
-    </div>
+    <Image
+      src={
+        isHero
+          ? "/carpincho_mascota_izquierda.png"
+          : "/carpincho_mascota_derecha.png"
+      }
+      alt="Italio - la mascota carpincho"
+      width={900}
+      height={997}
+      priority
+      sizes={isHero ? "(min-width: 1024px) 384px, 70vw" : "(min-width: 640px) 176px, 144px"}
+      className={
+        isHero
+          ? "mx-auto h-auto w-[70%] max-w-sm select-none sm:w-3/5 lg:w-full"
+          : "h-auto w-36 shrink-0 select-none sm:w-44"
+      }
+    />
   );
 }
