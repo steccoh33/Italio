@@ -79,7 +79,7 @@ export default async function StudentTasksPage() {
       </Link>
 
       <div className="flex flex-col gap-2">
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-azul sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-marca sm:text-4xl">
           {t("studentTitle")}
         </h1>
         <p className="text-muted-foreground">{t("studentSubtitle")}</p>
@@ -103,14 +103,14 @@ export default async function StudentTasksPage() {
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                         task.delivered
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                          ? "bg-menta/10 text-menta-texto"
                           : "bg-amarillo/20 text-tinta dark:text-foreground"
                       }`}
                     >
                       {task.delivered ? t("statusDelivered") : t("statusPending")}
                     </span>
                     {overdue && (
-                      <span className="rounded-full bg-rojo/10 px-2 py-0.5 text-xs font-medium text-rojo">
+                      <span className="rounded-full bg-rojo/10 px-2 py-0.5 text-xs font-medium text-rojo-texto">
                         {t("overdue")}
                       </span>
                     )}

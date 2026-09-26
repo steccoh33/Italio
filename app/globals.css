@@ -10,12 +10,17 @@
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-heading: var(--font-display);
-  --color-azul: #1f44e0;
-  --color-azul-light: #4c6fef;
-  --color-rojo: #ff5a36;
-  --color-amarillo: #ffc53d;
-  --color-tinta: #17223c;
-  --color-papel: #f5f2ea;
+  /* Paleta Italio. Los que cambian con el tema se definen abajo en :root/.dark. */
+  --color-azul: var(--azul);
+  --color-azul-fondo: var(--azul-fondo);
+  --color-marca: var(--marca);
+  --color-rojo: var(--rojo);
+  --color-rojo-texto: var(--rojo-texto);
+  --color-menta: var(--menta);
+  --color-menta-texto: var(--menta-texto);
+  --color-amarillo: #ffd166;
+  --color-tinta: #0b2a3b;
+  --color-papel: #f4f8fa;
   --color-blanco: #ffffff;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -56,72 +61,96 @@
 }
 
 :root {
-  --background: #f5f2ea;
-  --foreground: #17223c;
+  /*
+   * Azul #118AB2 (marca), coral #FF7F50, menta #06D6A0, amarillo #FFD166.
+   * - marca: azul exacto, para títulos grandes y detalles.
+   * - azul / azul-fondo: tono un poco más hondo para texto chico, enlaces y
+   *   fondos con texto blanco (el #118AB2 puro no llega a 4.5:1 con blanco).
+   * - rojo (coral): fondos, bordes y tintes de error; rojo-texto: texto de error.
+   * - menta: fondos, bordes y tintes de acierto; menta-texto: texto de acierto.
+   */
+  --marca: #118ab2;
+  --azul: #0b6c8d;
+  --azul-fondo: #0d7799;
+  --rojo: #ff7f50;
+  --rojo-texto: #b8401b;
+  --menta: #06d6a0;
+  --menta-texto: #047857;
+
+  --background: #f4f8fa;
+  --foreground: #0b2a3b;
   --card: #ffffff;
-  --card-foreground: #17223c;
+  --card-foreground: #0b2a3b;
   --popover: #ffffff;
-  --popover-foreground: #17223c;
-  --primary: #1f44e0;
+  --popover-foreground: #0b2a3b;
+  --primary: #0d7799;
   --primary-foreground: #ffffff;
-  --secondary: #eae6d9;
-  --secondary-foreground: #17223c;
-  --muted: #eae6d9;
-  --muted-foreground: #5b657f;
-  --accent: #eae6d9;
-  --accent-foreground: #17223c;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #ddd7c7;
-  --input: #ddd7c7;
-  --ring: #1f44e0;
+  --secondary: #e6eef2;
+  --secondary-foreground: #0b2a3b;
+  --muted: #e6eef2;
+  --muted-foreground: #4a6272;
+  --accent: #e6eef2;
+  --accent-foreground: #0b2a3b;
+  --destructive: #b8401b;
+  --border: #d5e0e6;
+  --input: #d5e0e6;
+  --ring: #118ab2;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: #eae6d9;
-  --sidebar-foreground: #17223c;
-  --sidebar-primary: #1f44e0;
+  --sidebar: #e6eef2;
+  --sidebar-foreground: #0b2a3b;
+  --sidebar-primary: #0d7799;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ddd7c7;
-  --sidebar-accent-foreground: #17223c;
-  --sidebar-border: #ddd7c7;
-  --sidebar-ring: #1f44e0;
+  --sidebar-accent: #d5e0e6;
+  --sidebar-accent-foreground: #0b2a3b;
+  --sidebar-border: #d5e0e6;
+  --sidebar-ring: #118ab2;
 }
 
 .dark {
-  --background: #0f1626;
-  --foreground: #eceef4;
-  --card: #17213a;
-  --card-foreground: #eceef4;
-  --popover: #17213a;
-  --popover-foreground: #eceef4;
-  --primary: #4c6fef;
+  --marca: #3fb6de;
+  --azul: #5cc3e6;
+  --azul-fondo: #0d7799;
+  --rojo: #ff8a5e;
+  --rojo-texto: #ff9a76;
+  --menta: #06d6a0;
+  --menta-texto: #3de3b8;
+
+  --background: #0a1a24;
+  --foreground: #e8f1f5;
+  --card: #10283a;
+  --card-foreground: #e8f1f5;
+  --popover: #10283a;
+  --popover-foreground: #e8f1f5;
+  --primary: #0d7799;
   --primary-foreground: #ffffff;
-  --secondary: #1e2a4a;
-  --secondary-foreground: #eceef4;
-  --muted: #1b2438;
-  --muted-foreground: #9aa3bd;
-  --accent: #1e2a4a;
-  --accent-foreground: #eceef4;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: #4c6fef;
+  --secondary: #163449;
+  --secondary-foreground: #e8f1f5;
+  --muted: #12303f;
+  --muted-foreground: #9db6c4;
+  --accent: #163449;
+  --accent-foreground: #e8f1f5;
+  --destructive: #ff9a76;
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: #3fb6de;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: #17213a;
-  --sidebar-foreground: #eceef4;
-  --sidebar-primary: #4c6fef;
+  --sidebar: #10283a;
+  --sidebar-foreground: #e8f1f5;
+  --sidebar-primary: #0d7799;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1e2a4a;
-  --sidebar-accent-foreground: #eceef4;
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #4c6fef;
+  --sidebar-accent: #163449;
+  --sidebar-accent-foreground: #e8f1f5;
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: #3fb6de;
 }
 
 @layer base {
@@ -133,5 +162,14 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Si el visitante pide menos movimiento, los reveals de las páginas públicas
+   se muestran ya en su lugar (pisa los estilos inline de Motion). */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -79,7 +79,7 @@ export default async function StudentTaskPage({
           <span
             className={`rounded-full px-2 py-0.5 text-xs font-medium ${
               delivered
-                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "bg-menta/10 text-menta-texto"
                 : "bg-amarillo/20 text-tinta dark:text-foreground"
             }`}
           >
@@ -89,7 +89,7 @@ export default async function StudentTaskPage({
             {t("fromClass", { name: klass?.name ?? "" })}
           </span>
         </div>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-azul sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-marca sm:text-4xl">
           {assignment.title}
         </h1>
         <p className="text-sm text-muted-foreground">

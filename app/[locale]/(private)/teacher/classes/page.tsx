@@ -51,7 +51,7 @@ export default async function ClassesPage() {
         >
           {t("backToTeacher")}
         </Link>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-azul sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-marca sm:text-4xl">
           {t("title")}
         </h1>
         <p className="text-muted-foreground">{t("subtitle")}</p>

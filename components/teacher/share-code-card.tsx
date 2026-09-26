@@ -35,7 +35,7 @@ export function ShareCodeCard({
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <span className="font-heading text-3xl font-bold tracking-tight text-azul">
+        <span className="font-heading text-3xl font-bold tracking-tight text-marca">
           {teacherCode}
         </span>
         <Button type="button" size="sm" onClick={handleCopy}>

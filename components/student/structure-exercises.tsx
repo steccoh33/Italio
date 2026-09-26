@@ -132,7 +132,7 @@ export function StructureExercises({
         {isPending && <p className="text-sm text-muted-foreground">{t("generating")}</p>}
         {error && (
           <div className="flex flex-col gap-2 rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2">
-            <p className="text-sm text-rojo">{error}</p>
+            <p className="text-sm text-rojo-texto">{error}</p>
             <div className="flex flex-wrap gap-2">
               <Button type="button" size="sm" variant="secondary" onClick={() => generate(type)}>
                 {t("retry")}
@@ -184,8 +184,8 @@ export function StructureExercises({
                 className={`mx-1 inline-flex min-w-8 items-center justify-center rounded-full px-2 py-0.5 text-sm font-bold ${
                   result
                     ? result.correct
-                      ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                      : "bg-rojo/15 text-rojo"
+                      ? "bg-menta/15 text-menta-texto"
+                      : "bg-rojo/15 text-rojo-texto"
                     : "bg-azul/10 text-azul"
                 }`}
               >
@@ -211,8 +211,8 @@ export function StructureExercises({
               className={`mx-1 h-8 w-32 rounded-lg border px-2 text-center text-base outline-none focus-visible:ring-2 focus-visible:ring-ring/50 ${
                 result
                   ? result.correct
-                    ? "border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                    : "border-rojo bg-rojo/10 text-rojo"
+                    ? "border-menta bg-menta/10 text-menta-texto"
+                    : "border-rojo bg-rojo/10 text-rojo-texto"
                   : "border-input bg-transparent"
               }`}
             />
@@ -247,11 +247,11 @@ export function StructureExercises({
                         }
                         className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
                           isRight
-                            ? "border-emerald-500 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                            ? "border-menta bg-menta/15 text-menta-texto"
                             : isWrongPick
-                              ? "border-rojo bg-rojo/10 text-rojo"
+                              ? "border-rojo bg-rojo/10 text-rojo-texto"
                               : selected
-                                ? "border-azul bg-azul text-primary-foreground"
+                                ? "border-azul bg-azul-fondo text-primary-foreground"
                                 : "border-border bg-background text-foreground hover:border-azul"
                         }`}
                       >
@@ -277,10 +277,10 @@ export function StructureExercises({
           <div
             className={`rounded-2xl border px-5 py-4 font-heading text-xl font-bold tracking-tight ${
               correctCount === exercise.blanks.length
-                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "border-menta/30 bg-menta/10 text-menta-texto"
                 : correctCount >= exercise.blanks.length / 2
                   ? "border-azul/30 bg-azul/10 text-azul"
-                  : "border-rojo/30 bg-rojo/10 text-rojo"
+                  : "border-rojo/30 bg-rojo/10 text-rojo-texto"
             }`}
           >
             {t("score", { correct: correctCount, total: exercise.blanks.length })}
@@ -299,7 +299,7 @@ export function StructureExercises({
                   key={blank.id}
                   className={`flex flex-col gap-1.5 rounded-xl border p-4 ${
                     result?.correct
-                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      ? "border-menta/30 bg-menta/5"
                       : "border-rojo/30 bg-rojo/5"
                   }`}
                 >
@@ -311,14 +311,14 @@ export function StructureExercises({
                       lang="it"
                       className={`font-medium ${
                         result?.correct
-                          ? "text-emerald-700 dark:text-emerald-300"
-                          : "text-rojo line-through"
+                          ? "text-menta-texto"
+                          : "text-rojo-texto line-through"
                       }`}
                     >
                       {result?.studentAnswer || t("noAnswer")}
                     </span>
                     {!result?.correct && (
-                      <span lang="it" className="font-medium text-foreground">
+                      <span lang="it" className="font-medium text-menta-texto">
                         → {correctAnswers.join(" / ")}
                       </span>
                     )}

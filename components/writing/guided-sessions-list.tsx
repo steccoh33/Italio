@@ -8,9 +8,9 @@ import { LocalDateTime } from "@/components/local-date-time";
 import { CorrectionResult } from "@/components/writing/correction-result";
 
 const VERDICT_BADGE_CLASSES: Record<string, string> = {
-  below: "bg-rojo/10 text-rojo",
-  at: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  above: "bg-azul/10 text-azul",
+  below: "bg-rojo/10 text-rojo-texto",
+  at: "bg-menta/10 text-menta-texto",
+  above: "bg-menta/10 text-menta-texto",
 };
 
 const VERDICT_KEYS: Record<string, string> = {

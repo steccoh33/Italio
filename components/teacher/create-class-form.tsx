@@ -52,7 +52,7 @@ export function CreateClassForm() {
         {t("createButton")}
       </Button>
       {state.error && (
-        <p className="text-sm text-rojo sm:basis-full">{state.error}</p>
+        <p className="text-sm text-rojo-texto sm:basis-full">{state.error}</p>
       )}
     </form>
   );

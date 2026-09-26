@@ -80,7 +80,7 @@ export default async function TeacherStudentDetailPage({
       </Link>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-azul sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-marca sm:text-4xl">
           {t("title", { name: student.full_name ?? "" })}
         </h1>
         <Link

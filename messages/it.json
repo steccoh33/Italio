@@ -1,7 +1,5 @@
 {
   "HomePage": {
-    "brandAlt": "Italio",
-    "mascotAlt": "Spazio riservato per la mascotte: un pappagallo",
     "signUp": "Registrati",
     "signIn": "Accedi",
     "heroTitle": "Migliora la tua scrittura in italiano, livello dopo livello",
@@ -23,9 +21,6 @@
     "schoolsItem3": "Report in PDF da condividere con altri docenti",
     "finalTitle": "Inizia a scrivere meglio in italiano",
     "finalBody": "Crea il tuo account in pochi minuti.",
-    "footerRights": "Tutti i diritti riservati.",
-    "privacy": "Privacy",
-    "terms": "Termini",
     "about": "Chi siamo",
     "contact": "Contatto"
   },
@@ -434,12 +429,10 @@
     "autoCorrectNotice": "La correzione automatica è un aiuto e può contenere errori: se pensi che la tua risposta sia corretta, chiedi al tuo insegnante."
   },
   "Legal": {
-    "back": "Torna alla home",
     "spanishNotice": "I documenti legali sono redatti in spagnolo, secondo la normativa argentina."
   },
   "About": {
     "metaTitle": "Chi siamo — Italio",
-    "back": "Torna alla home",
     "title": "Chi siamo",
     "intro": "Italio nasce in aula, da un insegnante di italiano.",
     "whoTitle": "Chi c’è dietro Italio",
@@ -452,7 +445,19 @@
     "contactTitle": "Contatto",
     "contactBody": "Sei una scuola o un insegnante e vuoi usare Italio? Scrivimi e troviamo il piano su misura per te.",
     "freeTrial": "È disponibile una prova gratuita per conoscere la piattaforma.",
-    "emailLabel": "Scrivimi a",
-    "monogramAlt": "Hernán, fondatore di Italio"
+    "emailLabel": "Scrivimi a"
+  },
+  "PublicShell": {
+    "homeAria": "Italio, vai alla home",
+    "about": "Chi siamo",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "signUp": "Registrati",
+    "signIn": "Accedi",
+    "footerRights": "Tutti i diritti riservati.",
+    "mainNav": "Navigazione principale",
+    "footerNav": "Informazioni",
+    "mascotteHeroAlt": "Spazio riservato per la mascotte: un pappagallo",
+    "mascotteAboutAlt": "Hernán, fondatore di Italio"
   }
 }

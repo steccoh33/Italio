@@ -2,9 +2,9 @@ import { useTranslations } from "next-intl";
 import type { CorrectionPayload } from "@/lib/types/writing";
 
 const VERDICT_STYLES: Record<CorrectionPayload["level_verdict"], string> = {
-  below: "border-rojo/30 bg-rojo/10 text-rojo",
-  at: "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  above: "border-azul/30 bg-azul/10 text-azul",
+  below: "border-rojo/30 bg-rojo/10 text-rojo-texto",
+  at: "border-menta/30 bg-menta/10 text-menta-texto",
+  above: "border-menta/30 bg-menta/10 text-menta-texto",
 };
 
 const VERDICT_LABEL_KEYS: Record<CorrectionPayload["level_verdict"], string> = {
@@ -49,7 +49,7 @@ export function CorrectionResult({
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex flex-col gap-1.5 rounded-xl border border-border bg-card p-4">
+        <div className="flex flex-col gap-1.5 rounded-xl border border-rojo/40 bg-card p-4">
           <p className="text-xs font-medium text-muted-foreground">
             {t("originalTextTitle")}
           </p>
@@ -57,7 +57,7 @@ export function CorrectionResult({
             {originalText}
           </p>
         </div>
-        <div className="flex flex-col gap-1.5 rounded-xl border border-border bg-card p-4">
+        <div className="flex flex-col gap-1.5 rounded-xl border border-menta/50 bg-card p-4">
           <p className="text-xs font-medium text-muted-foreground">
             {t("correctedTextTitle")}
           </p>
@@ -112,10 +112,10 @@ export function CorrectionResult({
                   <span className="rounded-full bg-amarillo/20 px-2 py-0.5 text-xs font-medium text-tinta dark:text-foreground">
                     {item.tipo}
                   </span>
-                  <span className="text-sm text-rojo line-through">
+                  <span className="text-sm text-rojo-texto line-through">
                     {item.fragmento}
                   </span>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm font-medium text-menta-texto">
                     → {item.correzione}
                   </span>
                 </div>

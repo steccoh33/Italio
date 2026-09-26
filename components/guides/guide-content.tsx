@@ -49,7 +49,7 @@ export function GuideContent({
               key={section.key}
               className="flex gap-4 rounded-2xl border border-border bg-card p-5"
             >
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-azul font-heading text-sm font-bold text-primary-foreground">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-azul-fondo font-heading text-sm font-bold text-primary-foreground">
                 {index + 1}
               </span>
               <div className="flex flex-col gap-1">
@@ -82,7 +82,7 @@ export function GuideContent({
 
       <section className="flex flex-col gap-3 rounded-2xl border-2 border-azul/30 bg-azul/5 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-heading text-xl font-bold tracking-tight text-azul">
+          <h2 className="font-heading text-xl font-bold tracking-tight text-marca">
             {t("modelExample")}
           </h2>
           <CopyExampleButton text={guide.modelExample} />

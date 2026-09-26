@@ -84,7 +84,7 @@ export function WritingForm({
             <p className="text-xs font-medium text-muted-foreground">
               {t("targetLevelLabel")}
             </p>
-            <p className="font-heading text-2xl font-bold tracking-tight text-azul">
+            <p className="font-heading text-2xl font-bold tracking-tight text-marca">
               {info.label}
             </p>
           </div>
@@ -141,7 +141,7 @@ export function WritingForm({
         </div>
 
         {state.error && (
-          <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo">
+          <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo-texto">
             {state.error}
           </p>
         )}

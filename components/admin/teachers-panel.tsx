@@ -25,7 +25,7 @@ type StatusFilter = "all" | UserStatus;
 const STATUS_BADGE_CLASSES: Record<UserStatus, string> = {
   pending: "bg-amarillo/20 text-tinta dark:text-foreground",
   active: "bg-azul/10 text-azul",
-  paused: "bg-rojo/10 text-rojo",
+  paused: "bg-rojo/10 text-rojo-texto",
 };
 
 const STATUS_LABEL_KEYS: Record<UserStatus, string> = {
@@ -203,7 +203,7 @@ export function AdminTeachersPanel({
       )}
 
       {error && (
-        <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo">
+        <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo-texto">
           {error}
         </p>
       )}
@@ -264,7 +264,7 @@ export function AdminTeachersPanel({
                     </span>
                   </div>
                   {teacher.status === "paused" && (
-                    <p className="text-xs text-rojo">{t("pauseWarning")}</p>
+                    <p className="text-xs text-rojo-texto">{t("pauseWarning")}</p>
                   )}
                 </div>
               </div>

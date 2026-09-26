@@ -1,7 +1,5 @@
 {
   "HomePage": {
-    "brandAlt": "Italio",
-    "mascotAlt": "Espacio reservado para la mascota: un lorito",
     "signUp": "Registrate",
     "signIn": "Ingresá",
     "heroTitle": "Mejorá tu escritura en italiano, nivel por nivel",
@@ -23,9 +21,6 @@
     "schoolsItem3": "Informes en PDF para compartir con otros docentes",
     "finalTitle": "Empezá a escribir mejor en italiano",
     "finalBody": "Creá tu cuenta en pocos minutos.",
-    "footerRights": "Todos los derechos reservados.",
-    "privacy": "Privacidad",
-    "terms": "Términos",
     "about": "Sobre Italio",
     "contact": "Contacto"
   },
@@ -434,12 +429,10 @@
     "autoCorrectNotice": "La autocorrección es una ayuda automática y puede tener errores: si creés que tu respuesta es correcta, consultá con tu profesor."
   },
   "Legal": {
-    "back": "Volver al inicio",
     "spanishNotice": "Los documentos legales están redactados en español, conforme a la normativa argentina."
   },
   "About": {
     "metaTitle": "Sobre Italio",
-    "back": "Volver al inicio",
     "title": "Sobre Italio",
     "intro": "Italio nació en el aula, de la mano de un profesor de italiano.",
     "whoTitle": "Quién está detrás de Italio",
@@ -451,7 +444,19 @@
     "contactTitle": "Contacto",
     "contactBody": "¿Sos una escuela o un profesor y querés usar Italio en tus clases? Escribime y armamos un plan a tu medida.",
     "freeTrial": "Hay una prueba gratuita disponible para conocer la plataforma.",
-    "emailLabel": "Escribime a",
-    "monogramAlt": "Hernán, creador de Italio"
+    "emailLabel": "Escribime a"
+  },
+  "PublicShell": {
+    "homeAria": "Italio, ir al inicio",
+    "about": "Sobre Italio",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "signUp": "Registrate",
+    "signIn": "Ingresá",
+    "footerRights": "Todos los derechos reservados.",
+    "mainNav": "Navegación principal",
+    "footerNav": "Información",
+    "mascotteHeroAlt": "Espacio reservado para la mascota: un lorito",
+    "mascotteAboutAlt": "Hernán, creador de Italio"
   }
 }

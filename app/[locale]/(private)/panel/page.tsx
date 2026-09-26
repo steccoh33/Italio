@@ -27,7 +27,7 @@ export default async function PanelPage() {
     <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 py-16 text-center">
       {profile.effectiveStatus === "pending" && (
         <>
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-azul">
+          <h1 className="font-heading text-4xl font-bold tracking-tight text-marca">
             {t("pendingTitle")}
           </h1>
           <p className="max-w-md text-lg text-muted-foreground">
@@ -38,7 +38,7 @@ export default async function PanelPage() {
 
       {profile.effectiveStatus === "paused" && (
         <>
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-azul">
+          <h1 className="font-heading text-4xl font-bold tracking-tight text-marca">
             {t("pausedTitle")}
           </h1>
           <p className="max-w-md text-lg text-muted-foreground">
@@ -49,7 +49,7 @@ export default async function PanelPage() {
 
       {profile.effectiveStatus === "active" && (
         <>
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-azul">
+          <h1 className="font-heading text-4xl font-bold tracking-tight text-marca">
             {t("welcomeTitle")}
           </h1>
           <p className="max-w-md text-lg text-muted-foreground">
@@ -68,7 +68,7 @@ export default async function PanelPage() {
             <p className="text-sm text-muted-foreground">
               {t("loginCodeLabel")}
             </p>
-            <p className="font-heading text-2xl font-bold tracking-tight text-azul break-all">
+            <p className="font-heading text-2xl font-bold tracking-tight text-marca break-all">
               {profile.loginCode}
             </p>
           </div>
@@ -78,7 +78,7 @@ export default async function PanelPage() {
               <p className="text-sm text-muted-foreground">
                 {t("shareCodeLabel")}
               </p>
-              <p className="font-heading text-2xl font-bold tracking-tight text-azul break-all">
+              <p className="font-heading text-2xl font-bold tracking-tight text-marca break-all">
                 {profile.teacherCode}
               </p>
             </div>

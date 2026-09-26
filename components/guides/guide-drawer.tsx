@@ -68,7 +68,7 @@ export function GuideDrawer({ targetLevel }: { targetLevel: CilsLevel }) {
                   <span className="w-fit rounded-full bg-azul/10 px-2 py-0.5 text-xs font-medium text-azul">
                     {selected.level}
                   </span>
-                  <h2 className="font-heading text-2xl font-bold tracking-tight text-azul">
+                  <h2 className="font-heading text-2xl font-bold tracking-tight text-marca">
                     {selected.title[locale]}
                   </h2>
                 </div>

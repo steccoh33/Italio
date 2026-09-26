@@ -16,7 +16,7 @@ export default async function LoginPage() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-16">
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="font-heading text-4xl font-bold tracking-tight text-azul">
+        <h1 className="font-heading text-4xl font-bold tracking-tight text-marca">
           {t("title")}
         </h1>
         <p className="max-w-sm text-muted-foreground">{t("subtitle")}</p>

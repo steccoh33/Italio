@@ -1,39 +1,24 @@
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import {
   LEGAL_LAST_UPDATED,
   type LegalDocument,
 } from "@/lib/legal/legal-content";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { PublicShell } from "@/components/public/public-shell";
 
 export async function LegalPage({ doc }: { doc: LegalDocument }) {
   const t = await getTranslations("Legal");
 
   return (
-    <div className="flex flex-1 flex-col">
-      <header className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-5">
-        <Link
-          href="/"
-          className="font-heading text-2xl font-bold tracking-tight text-azul"
-        >
-          Italio
-        </Link>
-        <LocaleSwitcher />
-      </header>
-
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 pt-6 pb-16 sm:pt-10">
-        <Link href="/" className="text-sm font-medium text-azul hover:underline">
-          ← {t("back")}
-        </Link>
-
-        <p className="mt-4 rounded-xl border border-amarillo/40 bg-amarillo/10 px-3 py-2 text-xs text-foreground">
+    <PublicShell width="max-w-3xl">
+      <div className="mx-auto w-full max-w-3xl flex-1 px-6 pt-8 pb-16 sm:pt-12">
+        <p className="rounded-xl border border-amarillo/40 bg-amarillo/10 px-3 py-2 text-xs text-foreground">
           {t("spanishNotice")}
         </p>
 
         {/* Los documentos legales están siempre en español. */}
         <article lang="es" className="mt-6 flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight text-azul sm:text-4xl">
+            <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight text-marca sm:text-4xl">
               {doc.title}
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -43,7 +28,10 @@ export async function LegalPage({ doc }: { doc: LegalDocument }) {
 
           <ol className="flex flex-col gap-5">
             {doc.sections.map((section) => (
-              <li key={section.number} className="flex flex-col gap-2 text-base leading-relaxed text-foreground">
+              <li
+                key={section.number}
+                className="flex flex-col gap-2 text-base leading-relaxed text-foreground"
+              >
                 <p>
                   <span className="font-heading font-bold text-azul">
                     {section.number}.
@@ -72,7 +60,7 @@ export async function LegalPage({ doc }: { doc: LegalDocument }) {
             </p>
           )}
         </article>
-      </main>
-    </div>
+      </div>
+    </PublicShell>
   );
 }

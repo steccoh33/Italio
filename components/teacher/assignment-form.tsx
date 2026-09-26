@@ -108,7 +108,7 @@ export function AssignmentForm({
       </div>
 
       {error && (
-        <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo">
+        <p className="rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2 text-sm text-rojo-texto">
           {error}
         </p>
       )}

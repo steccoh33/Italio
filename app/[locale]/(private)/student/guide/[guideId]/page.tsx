@@ -47,7 +47,7 @@ export default async function GuideDetailPage({
         <span className="w-fit rounded-full bg-azul/10 px-2 py-0.5 text-xs font-medium text-azul">
           {guide.level}
         </span>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-azul sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-marca sm:text-4xl">
           {guide.title[locale]}
         </h1>
       </div>

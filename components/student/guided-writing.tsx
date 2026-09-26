@@ -121,7 +121,7 @@ export function GuidedWriting({ targetLevel }: { targetLevel: CilsLevel }) {
 
   const errorBox = error && (
     <div className="flex flex-col gap-2 rounded-lg border border-rojo/30 bg-rojo/10 px-3 py-2">
-      <p className="text-sm text-rojo">{error}</p>
+      <p className="text-sm text-rojo-texto">{error}</p>
       {stage === "chat" && messages.length === 0 && (
         <Button
           type="button"
@@ -283,7 +283,7 @@ export function GuidedWriting({ targetLevel }: { targetLevel: CilsLevel }) {
 
       {ready && consigna && sessionId && (
         <div className="flex flex-col gap-3">
-          <h2 className="font-heading text-xl font-bold tracking-tight text-azul">
+          <h2 className="font-heading text-xl font-bold tracking-tight text-marca">
             {t("writeNow")}
           </h2>
           <WritingForm

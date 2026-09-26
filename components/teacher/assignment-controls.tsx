@@ -73,7 +73,7 @@ export function AssignmentControls({
         </Button>
       </div>
 
-      {error && <p className="text-sm text-rojo">{error}</p>}
+      {error && <p className="text-sm text-rojo-texto">{error}</p>}
 
       <Dialog
         open={confirmDelete}

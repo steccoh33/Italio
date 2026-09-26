@@ -22,7 +22,7 @@ export default async function StatusPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-16 text-center">
-      <h1 className="font-heading text-4xl font-bold tracking-tight text-azul">
+      <h1 className="font-heading text-4xl font-bold tracking-tight text-marca">
         Estado de Supabase
       </h1>
 
@@ -30,7 +30,7 @@ export default async function StatusPage() {
         <p className="text-lg text-foreground">Conexión con Supabase OK</p>
       ) : (
         <div className="flex max-w-md flex-col gap-3">
-          <p className="text-lg text-rojo">No se pudo conectar con Supabase</p>
+          <p className="text-lg text-rojo-texto">No se pudo conectar con Supabase</p>
           <p className="rounded-lg border border-border bg-card px-4 py-3 text-sm break-words text-muted-foreground">
             {message}
           </p>

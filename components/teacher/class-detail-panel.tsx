@@ -126,7 +126,7 @@ export function ClassDetailPanel({
             {nameSaved ? t("savedFeedback") : t("saveNameButton")}
           </Button>
         </div>
-        {nameError && <p className="text-sm text-rojo">{nameError}</p>}
+        {nameError && <p className="text-sm text-rojo-texto">{nameError}</p>}
       </div>
 
       <div className="flex flex-col gap-4">
@@ -157,7 +157,7 @@ export function ClassDetailPanel({
           </ul>
         )}
 
-        {membersError && <p className="text-sm text-rojo">{membersError}</p>}
+        {membersError && <p className="text-sm text-rojo-texto">{membersError}</p>}
 
         <Button
           type="button"

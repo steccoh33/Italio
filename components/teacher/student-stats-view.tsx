@@ -8,22 +8,22 @@ import type { StudentStats } from "@/lib/stats/student-stats";
 import { Button } from "@/components/ui/button";
 
 const BAR_CLASSES: Record<Tone, string> = {
-  good: "bg-emerald-500",
+  good: "bg-menta",
   bad: "bg-rojo",
   same: "bg-muted-foreground/60",
-  neutral: "bg-azul",
+  neutral: "bg-azul-fondo",
 };
 
 const TEXT_CLASSES: Record<Tone, string> = {
-  good: "text-emerald-600 dark:text-emerald-400",
-  bad: "text-rojo",
+  good: "text-menta-texto",
+  bad: "text-rojo-texto",
   same: "text-muted-foreground",
   neutral: "text-azul",
 };
 
 const BADGE_CLASSES: Record<Tone, string> = {
-  good: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  bad: "bg-rojo/10 text-rojo",
+  good: "bg-menta/10 text-menta-texto",
+  bad: "bg-rojo/10 text-rojo-texto",
   same: "bg-muted text-muted-foreground",
   neutral: "bg-azul/10 text-azul",
 };
@@ -86,7 +86,7 @@ export function StudentStatsView({
         >
           {downloading ? t("generatingPdf") : t("downloadPdf")}
         </Button>
-        {pdfError && <p className="text-sm text-rojo">{t("pdfError")}</p>}
+        {pdfError && <p className="text-sm text-rojo-texto">{t("pdfError")}</p>}
       </div>
 
       {report.sections.map((section, index) => (
@@ -103,7 +103,7 @@ export function StudentStatsView({
                   className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4"
                 >
                   <span className="text-xs text-muted-foreground">{item.label}</span>
-                  <span className="font-heading text-2xl font-bold tracking-tight text-azul">
+                  <span className="font-heading text-2xl font-bold tracking-tight text-marca">
                     {item.value}
                   </span>
                 </div>

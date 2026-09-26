@@ -1,11 +1,12 @@
 import type { Report, Tone } from "@/lib/stats/report-model";
 
-const AZUL: [number, number, number] = [31, 68, 224];
-const ROJO: [number, number, number] = [255, 90, 54];
-const VERDE: [number, number, number] = [16, 150, 105];
-const TINTA: [number, number, number] = [23, 34, 60];
-const GRIS: [number, number, number] = [91, 101, 127];
-const TRACK: [number, number, number] = [234, 230, 217];
+// Paleta Italio en versión legible sobre papel blanco (texto y barras).
+const AZUL: [number, number, number] = [13, 119, 153]; // #0D7799
+const ROJO: [number, number, number] = [184, 64, 27]; // #B8401B (coral hondo)
+const VERDE: [number, number, number] = [4, 120, 87]; // #047857 (menta hondo)
+const TINTA: [number, number, number] = [11, 42, 59]; // #0B2A3B
+const GRIS: [number, number, number] = [74, 98, 114]; // #4A6272
+const TRACK: [number, number, number] = [230, 238, 242]; // #E6EEF2
 
 const PAGE_MARGIN = 16;
 const PAGE_BOTTOM = 280;
