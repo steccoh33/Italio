@@ -182,6 +182,7 @@ ${already}
 Rispondi ESCLUSIVAMENTE con l'oggetto JSON richiesto.`;
 
   const response = await generateWithFallback({
+    attemptsPerModel: 1,
     contents: [{ role: "user", parts: [{ text: "Proponi una consegna." }] }],
     config: {
       systemInstruction: instruction,
@@ -273,6 +274,7 @@ export async function runTutorTurn({
   ];
 
   const response = await generateWithFallback({
+    attemptsPerModel: 1,
     contents,
     config: {
       systemInstruction: buildTutorInstruction({

@@ -20,9 +20,17 @@ export class CorrectionRequestError extends Error {
 // gratuita de abajo.
 const PRODUCTION_MODEL = "gemini-3.8-flash";
 
-// Respaldo del modelo de producción: solo entra si este devuelve 503 (alta
-// demanda) tras agotar sus reintentos.
-const PRODUCTION_BACKUP_MODEL = "gemini-3.7-flash";
+// Cadena de producción. Se exprime primero el mejor modelo (3.8) y, cuando su
+// cupo se satura, se cae al de MAYOR disponibilidad (3.5-flash-lite, para que
+// casi nunca falle todo), luego a los de calidad y, como último recurso, 3.6.
+// Cada modelo cede al siguiente si falla (503/429/404/timeout) tras sus
+// reintentos; solo si los cuatro fallan se muestra "mucha demanda".
+const PRODUCTION_CHAIN = [
+  PRODUCTION_MODEL,
+  "gemini-3.5-flash-lite",
+  "gemini-3.7-flash",
+  "gemini-3.6-flash",
+];
 
 // Cadena de respaldo SOLO en desarrollo y sin GEMINI_MODEL, de más liviano/con
 // más cupo a más pesado. Confirmados como existentes y accesibles con la key
@@ -37,24 +45,28 @@ const DEV_FALLBACK_MODELS = [
 ];
 
 // Presupuesto total de espera antes de rendirse y mostrar "mucha demanda".
-const TOTAL_BUDGET_MS = 50_000;
-const PER_REQUEST_TIMEOUT_MS = 30_000;
+// Cada llamada tiene su propio límite, y el total alcanza para recorrer la
+// cadena aun si algún modelo se cuelga. Ojo: en el hosting, la función del
+// servidor debe permitir al menos ese tiempo (maxDuration).
+const TOTAL_BUDGET_MS = 75_000;
+const PER_REQUEST_TIMEOUT_MS = 25_000;
 
 // Un 503 ("high demand") de Gemini suele ser un pico pasajero: se reintenta
-// el mismo modelo unas veces, con una pausa corta, antes de pasar al siguiente
-// (en producción: de gemini-3.8-flash a gemini-3.7-flash).
-const MAX_ATTEMPTS_PER_MODEL = 3;
-const RETRY_DELAY_MS = 2_000;
+// el mismo modelo UNA vez, con una pausa corta, y si sigue saturado se salta
+// al siguiente modelo. Pocos reintentos a propósito. El tutor de escritura
+// guiada hace varias llamadas por sesión y pide solo 1 intento por modelo
+// (attemptsPerModel) para saltar de modelo más rápido.
+const DEFAULT_ATTEMPTS_PER_MODEL = 2;
+const RETRY_DELAY_MS = 1_000;
 
 function getModelChain(): string[] {
   const forced = process.env.GEMINI_MODEL?.trim();
   const active =
     forced || (process.env.NODE_ENV === "production" ? PRODUCTION_MODEL : null);
 
-  // Modelo de producción: con su respaldo para los picos de alta demanda.
-  if (active === PRODUCTION_MODEL) {
-    return [PRODUCTION_MODEL, PRODUCTION_BACKUP_MODEL];
-  }
+  // Modelo de producción: con su cadena de respaldo para los picos de alta
+  // demanda.
+  if (active === PRODUCTION_MODEL) return PRODUCTION_CHAIN;
   // Cualquier otro GEMINI_MODEL definido a mano: ese modelo y solo ese, sin
   // respaldo, para que un error de cuota/facturación se vea y no lo tape otro.
   if (active) return [active];
@@ -73,9 +85,12 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function generateWithFallback({
   contents,
   config,
+  attemptsPerModel = DEFAULT_ATTEMPTS_PER_MODEL,
 }: {
   contents: ContentListUnion;
   config: GenerateContentConfig;
+  /** Intentos por modelo ante un 503 antes de pasar al siguiente. */
+  attemptsPerModel?: number;
 }): Promise<GenerateContentResponse> {
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
   if (!apiKey) {
@@ -86,7 +101,7 @@ export async function generateWithFallback({
   const deadline = Date.now() + TOTAL_BUDGET_MS;
 
   for (const model of getModelChain()) {
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS_PER_MODEL; attempt++) {
+    for (let attempt = 1; attempt <= attemptsPerModel; attempt++) {
       const remaining = deadline - Date.now();
       if (remaining <= 1000) break;
 
@@ -119,7 +134,7 @@ export async function generateWithFallback({
           throw new CorrectionRequestError((err as Error).message, "other");
         }
         // Solo el 503 (pico de demanda) merece reintento con el mismo modelo.
-        if (status !== 503 || attempt === MAX_ATTEMPTS_PER_MODEL) break;
+        if (status !== 503 || attempt === attemptsPerModel) break;
         await sleep(RETRY_DELAY_MS);
       }
     }
