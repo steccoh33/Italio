@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { CILS_LEVEL_INFO } from "@/lib/cils-levels";
 import {
   computeStudentStats,
+  type ExerciseAttempt,
   type StatsWriting,
 } from "@/lib/stats/student-stats";
 import { StudentStatsView } from "@/components/teacher/student-stats-view";
@@ -69,7 +70,12 @@ export default async function StudentStatsPage({
     });
   }
 
-  const stats = computeStudentStats(writings);
+  const { data: attemptRows } = await supabase
+    .from("exercise_attempts")
+    .select("exercise_type, total_blanks, correct_count, created_at")
+    .eq("student_id", studentId);
+
+  const stats = computeStudentStats(writings, (attemptRows ?? []) as ExerciseAttempt[]);
   const t = await getTranslations("Stats");
   const level = student.target_level as CilsLevel | null;
   const levelLabel = level ? CILS_LEVEL_INFO[level].label : "-";

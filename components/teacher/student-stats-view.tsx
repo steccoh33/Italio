@@ -67,7 +67,7 @@ export function StudentStatsView({
     }
   }
 
-  if (stats.totals.texts === 0) {
+  if (stats.totals.texts === 0 && stats.exercises.done === 0) {
     return (
       <p className="rounded-xl border border-dashed border-border px-4 py-10 text-center text-sm text-muted-foreground">
         {t("empty")}

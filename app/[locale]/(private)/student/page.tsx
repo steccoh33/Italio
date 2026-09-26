@@ -62,6 +62,12 @@ export default async function StudentPage() {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
+            href="/student/structures"
+            className={buttonVariants({ variant: "secondary" })}
+          >
+            {t("structuresLink")}
+          </Link>
+          <Link
             href="/student/guided"
             className={buttonVariants({ variant: "secondary" })}
           >

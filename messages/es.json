@@ -140,7 +140,8 @@
     "historyTab": "Tus escritos",
     "guidesLink": "Guías de escritura",
     "tasksLink": "Tareas",
-    "guidedLink": "Escritura guiada"
+    "guidedLink": "Escritura guiada",
+    "structuresLink": "Análisis de estructuras"
   },
   "GuidedWriting": {
     "title": "Escritura guiada",
@@ -343,6 +344,66 @@
       "coesione": "Cohesión",
       "adeguatezza": "Adecuación",
       "altro": "Otros"
-    }
+    },
+    "exercisesTitle": "Ejercicios de estructuras",
+    "exercisesDone": "Ejercicios hechos",
+    "exercisesAvg": "Promedio correcto",
+    "exercisesByType": "Promedio correcto por tipo (cantidad de ejercicios)",
+    "exercisesEvolution": "Evolución en los ejercicios",
+    "exType": {
+      "verbi": "Verbos",
+      "strutturale": "Estructural",
+      "cloze": "Cloze"
+    },
+    "exercisesPeriods": "Período inicial ({first} ejercicios) frente a período reciente ({last} ejercicios).",
+    "exercisesNotEnough": "Todavía pocos ejercicios para calcular la evolución."
+  },
+  "Exercises": {
+    "title": "Análisis de estructuras",
+    "subtitle": "Ejercicios de gramática al estilo del examen CILS, generados para tu nivel. Se corrigen al instante. Los ejercicios están en italiano.",
+    "backToPanel": "← Tu panel",
+    "chooseType": "Elegí un tipo de ejercicio para tu nivel ({level}). La IA genera uno nuevo cada vez.",
+    "type": {
+      "verbi": {
+        "name": "Verbos",
+        "desc": "Un texto con huecos: escribís la forma conjugada del verbo que está entre paréntesis."
+      },
+      "cloze": {
+        "name": "Cloze",
+        "desc": "Un texto con huecos: elegís la opción correcta entre varias."
+      }
+    },
+    "kind": {
+      "aggettivi": {
+        "name": "Adjetivos",
+        "desc": "Un texto con huecos: escribís el adjetivo con el género y el número correctos."
+      },
+      "preposizioni": {
+        "name": "Preposiciones",
+        "desc": "Un texto con huecos: escribís la preposición articulada correcta (di + il → del)."
+      },
+      "pronomi": {
+        "name": "Pronombres",
+        "desc": "Un texto con huecos: posesivos, relativos, interrogativos y pronombres combinados."
+      },
+      "pronomi_connettivi": {
+        "name": "Pronombres y conectores",
+        "desc": "Un texto con huecos: relativos complejos, nominalización y discurso indirecto."
+      },
+      "riformulazione": {
+        "name": "Reformulación",
+        "desc": "Un texto con huecos: registros, conectores sofisticados y expresiones idiomáticas."
+      }
+    },
+    "generating": "Generando el ejercicio…",
+    "check": "Corregir",
+    "another": "Otro ejercicio",
+    "changeType": "Cambiar de tipo",
+    "retry": "Reintentar",
+    "score": "{correct}/{total} correctos",
+    "noAnswer": "(sin respuesta)",
+    "genericError": "No pudimos generar el ejercicio. Intentá de nuevo.",
+    "modelBusy": "El generador está con mucha demanda en este momento. Probá de nuevo en unos minutos.",
+    "autoCorrectNotice": "La autocorrección es una ayuda automática y puede tener errores: si creés que tu respuesta es correcta, consultá con tu profesor."
   }
 }

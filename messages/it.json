@@ -140,7 +140,8 @@
     "historyTab": "I tuoi scritti",
     "guidesLink": "Guide di scrittura",
     "tasksLink": "Compiti",
-    "guidedLink": "Scrittura guidata"
+    "guidedLink": "Scrittura guidata",
+    "structuresLink": "Analisi delle strutture"
   },
   "GuidedWriting": {
     "title": "Scrittura guidata",
@@ -343,6 +344,66 @@
       "coesione": "Coesione",
       "adeguatezza": "Adeguatezza",
       "altro": "Altro"
-    }
+    },
+    "exercisesTitle": "Esercizi sulle strutture",
+    "exercisesDone": "Esercizi svolti",
+    "exercisesAvg": "Media di risposte corrette",
+    "exercisesByType": "Media di risposte corrette per tipo (numero di esercizi)",
+    "exercisesEvolution": "Evoluzione negli esercizi",
+    "exType": {
+      "verbi": "Verbi",
+      "strutturale": "Strutturale",
+      "cloze": "Cloze"
+    },
+    "exercisesPeriods": "Periodo iniziale ({first} esercizi) rispetto al periodo recente ({last} esercizi).",
+    "exercisesNotEnough": "Ancora pochi esercizi per calcolare l'evoluzione."
+  },
+  "Exercises": {
+    "title": "Analisi delle strutture",
+    "subtitle": "Esercizi di grammatica in stile esame CILS, generati per il tuo livello. Si correggono subito. Gli esercizi sono in italiano.",
+    "backToPanel": "← Il tuo pannello",
+    "chooseType": "Scegli un tipo di esercizio per il tuo livello ({level}). L'IA ne genera uno nuovo ogni volta.",
+    "type": {
+      "verbi": {
+        "name": "Verbi",
+        "desc": "Un testo con spazi: scrivi la forma coniugata del verbo indicato tra parentesi."
+      },
+      "cloze": {
+        "name": "Cloze",
+        "desc": "Un testo con spazi: scegli l'opzione corretta tra quelle proposte."
+      }
+    },
+    "kind": {
+      "aggettivi": {
+        "name": "Aggettivi",
+        "desc": "Un testo con spazi: scrivi l'aggettivo con genere e numero corretti."
+      },
+      "preposizioni": {
+        "name": "Preposizioni",
+        "desc": "Un testo con spazi: scrivi la preposizione articolata corretta (di + il → del)."
+      },
+      "pronomi": {
+        "name": "Pronomi",
+        "desc": "Un testo con spazi: possessivi, relativi, interrogativi e pronomi combinati."
+      },
+      "pronomi_connettivi": {
+        "name": "Pronomi e connettivi",
+        "desc": "Un testo con spazi: relativi complessi, nominalizzazione e discorso indiretto."
+      },
+      "riformulazione": {
+        "name": "Riformulazione",
+        "desc": "Un testo con spazi: registri, connettivi sofisticati ed espressioni idiomatiche."
+      }
+    },
+    "generating": "Sto generando l'esercizio…",
+    "check": "Correggi",
+    "another": "Un altro esercizio",
+    "changeType": "Cambia tipo",
+    "retry": "Riprova",
+    "score": "{correct}/{total} corretti",
+    "noAnswer": "(nessuna risposta)",
+    "genericError": "Non è stato possibile generare l'esercizio. Riprova.",
+    "modelBusy": "Il generatore è molto richiesto in questo momento. Riprova tra qualche minuto.",
+    "autoCorrectNotice": "La correzione automatica è un aiuto e può contenere errori: se pensi che la tua risposta sia corretta, chiedi al tuo insegnante."
   }
 }

@@ -9,6 +9,8 @@ export type ErrorCategory =
 export type Trend = "up" | "same" | "down";
 export type Verdict = "below" | "at" | "above";
 
+export type ExerciseKind = "verbi" | "strutturale" | "cloze";
+
 export const DIMENSIONS: DimKey[] = [
   "adeguatezza",
   "morfosintassi",
@@ -22,8 +24,32 @@ export const MIN_TEXTS_FOR_EVOLUTION = 5;
 const DIMENSION_THRESHOLD = 0.3;
 /** Cambio mínimo en errores por texto para hablar de mejora o retroceso. */
 const ERRORS_PER_TEXT_THRESHOLD = 0.5;
+/** Cambio mínimo, en puntos porcentuales, para hablar de mejora o retroceso en ejercicios. */
+const EXERCISE_PERCENT_THRESHOLD = 5;
 /** Diferencia mínima entre la dimensión más alta y la más baja para marcar fortaleza/debilidad. */
 const STRENGTH_MIN_SPREAD = 0.05;
+
+export type ExerciseAttempt = {
+  exercise_type: ExerciseKind;
+  total_blanks: number;
+  correct_count: number;
+  created_at: string;
+};
+
+export type ExerciseStats = {
+  done: number;
+  /** Promedio de % correcto por intento (0-100). */
+  avgPercent: number;
+  byType: { type: ExerciseKind; count: number; avgPercent: number }[];
+  enoughForEvolution: boolean;
+  evolution: null | {
+    firstCount: number;
+    lastCount: number;
+    first: number;
+    last: number;
+    trend: Trend;
+  };
+};
 
 export type StatsWriting = {
   created_at: string;
@@ -72,7 +98,50 @@ export type StudentStats = {
   };
   /** Tendencia general, solo si hay evolución. */
   overallTrend: "improving" | "stable" | "declining" | null;
+  exercises: ExerciseStats;
 };
+
+function attemptPercent(attempt: ExerciseAttempt): number {
+  return attempt.total_blanks > 0
+    ? (attempt.correct_count / attempt.total_blanks) * 100
+    : 0;
+}
+
+/** Estadísticas de los ejercicios de "Analisi delle strutture" (mismo criterio de pocos datos que la evolución de textos). */
+export function computeExerciseStats(input: ExerciseAttempt[]): ExerciseStats {
+  const attempts = [...input].sort(
+    (a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)
+  );
+  const n = attempts.length;
+  const percents = attempts.map(attemptPercent);
+
+  const kinds: ExerciseKind[] = ["verbi", "strutturale", "cloze"];
+  const byType = kinds
+    .map((type) => {
+      const own = attempts
+        .map((a, i) => ({ a, p: percents[i] }))
+        .filter((x) => x.a.exercise_type === type);
+      return { type, count: own.length, avgPercent: mean(own.map((x) => x.p)) };
+    })
+    .filter((x) => x.count > 0);
+
+  const enoughForEvolution = n >= MIN_TEXTS_FOR_EVOLUTION;
+  let evolution: ExerciseStats["evolution"] = null;
+  if (enoughForEvolution) {
+    const mid = Math.floor(n / 2);
+    const first = mean(percents.slice(0, mid));
+    const last = mean(percents.slice(mid));
+    evolution = {
+      firstCount: mid,
+      lastCount: n - mid,
+      first,
+      last,
+      trend: trendOf(last - first, EXERCISE_PERCENT_THRESHOLD),
+    };
+  }
+
+  return { done: n, avgPercent: mean(percents), byType, enoughForEvolution, evolution };
+}
 
 /** Agrupa el campo libre "tipo" de cada error en categorías amplias. */
 export function categorizeError(tipo: string | undefined | null): ErrorCategory {
@@ -140,7 +209,10 @@ function errorCounts(writings: StatsWriting[]): Map<ErrorCategory, number> {
  * Calcula las estadísticas de un alumno a partir de sus escritos ya corregidos
  * (libres, de tarea y guiados). Función pura: no toca la base.
  */
-export function computeStudentStats(input: StatsWriting[]): StudentStats {
+export function computeStudentStats(
+  input: StatsWriting[],
+  attempts: ExerciseAttempt[] = []
+): StudentStats {
   const writings = [...input].sort(
     (a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)
   );
@@ -254,5 +326,6 @@ export function computeStudentStats(input: StatsWriting[]): StudentStats {
     enoughForEvolution,
     evolution,
     overallTrend,
+    exercises: computeExerciseStats(attempts),
   };
 }
